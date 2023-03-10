@@ -3,6 +3,7 @@
     $serveur = "localhost";
     $username = "root";
     $password = "";
+    $bdd = "projet";
 
 //Initialisation variable de vérification 
     $uname = $_POST['uname'];
@@ -10,15 +11,20 @@
     $connect = false;
     $log = false;
     $mdp = false;
+    $admin = 0;
+    $pilote = 0;
+    $admincon = false;
+    $pilotecon = false;
     $error = "";
     $success = "";
 
 //test de connection à la bdd
     try{
-        $connexion = new PDO('mysql:host=localhost;dbname=wrk8', $username, $password);
+        $connexion =  mysqli_connect("$serveur", "$username", "$password", "$bdd");
         echo'connexion réussi à la bdd réussie' . "<br>";
-        $sqlp="SELECT pseudo FROM utilisateurs";
-        $sqla="SELECT motDePasse FROM utilisateurs";
+        $sql=mysqli_query($connexion,"SELECT * FROM authentifiant WHERE Login='".$uname."' AND Mdp='".$pass."' ")   ;
+        $row = mysqli_fetch_assoc($sql);
+
     }
 
     catch(PDExeption $e){
@@ -26,37 +32,74 @@
         die;
     }
 
-//vérification entré bon login et mdp  
-    foreach($connexion->query($sqlp) as $row){
-        if($row ['pseudo'] == $uname){
-            $log = true;
+//vérification entré bon login et mdp 
 
-            foreach($connexion->query($sqla) as $row){
-                if($row ['motDePasse'] == $pass){
-                    $mdp = true;
-                }
-            }
-        }
-    }
+    
 
 //action à réaliser
     if(isset($_POST['submit'])){
-        if($log==true && $mdp==true){
-            $connect=true;
-            echo 'Vous êtes bien connecté en tant que ' . $uname;
-            header('location: acceuil.php');
-            exit;
-            $success="Welcome";
-            $error="";
-        }
+            if($row ['Admin'] == 1)
+            {
+                header('location: accueil_adm.php');
+                exit;
+            }
+            elseif($row ['Pilote'] == 1){
+                header('location: accueil_pil.php');
+                exit;
+            }
+            elseif($row ['Login'] == $uname && $row ['Mdp'] == $pass){
+                header('location: accueil_etu.php');
+                exit;
+            }
+            else{
+                echo "<script> alert('Login et/ou mot de passe incorrect');</script>";
+            }
+            
 
-    else{
-        $connect=false;
-        $success="";
-        $error="Error";
-        //echo  "<script>alert('Login et/ou mot de passe incorrect');</script>";
-    }
-    }
+        /*
+            foreach($connexion->query($sql) as $row)
+
+
+            if($log==true && $mdp==true && $admincon == false && $pilotecon == false){
+                $connect=true;
+                echo 'Vous êtes bien connecté en tant que ' . $uname;
+                header('location: accueil_etu.php');
+                exit;
+                $success="Welcome";
+                $error="";
+            }
+            elseif($log==true && $mdp==true && $admincon == true){
+                    $connect=true;
+                    echo 'Vous êtes bien connecté en tant que ' . $uname;
+                    header('location: accueil_adm.php');
+                    exit;
+                    $success="Welcome";
+                    $error="";
+                }
+            elseif($log==true && $mdp==true && $pilotecon == true){
+                $connect=true;
+                echo 'Vous êtes bien connecté en tant que ' . $uname;
+                header('location: accueil_pil.php');
+                exit;
+                $success="Welcome";
+                $error="";
+            }
+            /*
+            else{
+                $error="y'a un pb";
+            }*/
+        }
+        
+        /*else{
+            $connect=false;
+            $success="";
+            $error="Error";
+            //echo  "<script>alert('Login et/ou mot de passe incorrect');</script>";
+        }
+        */
+    
+
+
 
 ?>
 
@@ -84,6 +127,12 @@
         </div>
     </body>
 </html>
+
+
+
+
+
+
 
 <?php
     /* Vérifier si Gandalf est dans la BDD 

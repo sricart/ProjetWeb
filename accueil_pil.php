@@ -7,6 +7,6 @@
         <title> Accueil Form </title>
     </head>
     <body>
-        Page d'acceuil en construction !
+        Bienvenue sur la page pilote !
     </body>
 </html>
