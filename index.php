@@ -120,8 +120,9 @@
                     <input type="text" name="uname" value="" placeholder="Enter Username" required><br /> <br>
                     <i class="fa fa-lock fa-2x cust" aria-hidden="true"> </i>
                     <input type="password" name="pass" value="" placeholder="Enter Password" required><br />
-                    <a href="#"> Forget Password </a> <br><br>
+                    <a href="#"> Mot de passe oublié ? </a> <br><br>
                     <input type="submit" name="submit" value="Login">
+                    <input type="reset" name="reset" value="Reset">
                 </div>
             </form>
         </div>
