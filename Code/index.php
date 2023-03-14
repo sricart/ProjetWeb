@@ -34,21 +34,19 @@
 
 //vérification entré bon login et mdp 
 
-    
-
 //action à réaliser
     if(isset($_POST['submit'])){
             if($row ['Admin'] == 1)
             {
-                header('location: accueil_adm.php');
+                header('location: accueil/nav_admin/accueil_admin.php');
                 exit;
             }
             elseif($row ['Pilote'] == 1){
-                header('location: accueil_pil.php');
+                header('location: accueil/nav_pilote/accueil_pilote.php');
                 exit;
             }
             elseif($row ['Login'] == $uname && $row ['Mdp'] == $pass){
-                header('location: accueil_etu.php');
+                header('location: accueil/nav_etudiant/accueil_etudiant.php');
                 exit;
             }
             else{
@@ -107,7 +105,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="styl.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title> Login Form </title>
     </head>
@@ -120,7 +118,7 @@
                     <input type="text" name="uname" value="" placeholder="Enter Username" required><br /> <br>
                     <i class="fa fa-lock fa-2x cust" aria-hidden="true"> </i>
                     <input type="password" name="pass" value="" placeholder="Enter Password" required><br />
-                    <a href="#"> Mot de passe oublié ? </a> <br><br>
+                    <a href="mdp_oublie.php"> Mot de passe oublié ? </a> <br><br>
                     <input type="submit" name="submit" value="Login">
                     <input type="reset" name="reset" value="Reset">
                 </div>
