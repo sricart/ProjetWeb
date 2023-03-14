@@ -25,23 +25,20 @@
             <nav class="nav-bar">
                 <ul>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/accueil_admin.php">Accueil</a> 
+                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/accueil_pilote.php">Accueil</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/utilisateurs_admin.php">Utilisateurs</a> 
+                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/etudiants_pilote.php">Etudiant</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/entreprises&offres_admin.php">Entreprises et Offres</a> 
+                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/entreprises&offres_pilote.php">Entreprises et Offres</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/compte_admin.php">Votre compte</a> 
+                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/compte_pilote.php">Votre compte</a> 
                     </li>
                 </ul>
             </nav>
         </header>
-
-
-
 
         Bienvenue sur la page pilote
         <br>
@@ -63,23 +60,22 @@
             ?>
         </div>
 
-
         <footer>
             <ul>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/actualites.php">Actualités</a> 
+                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/footer/actualites.php">Actualités</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/a_propos.php">À Propos</a> 
+                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/footer/a_propos.php">À Propos</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/support.php">Support</a> 
+                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/footer/support.php">Support</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/mentions_legales.php">Mentions Légales</a> 
+                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/footer/mentions_legales.php">Mentions Légales</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/cgu.php">CGU</a> 
+                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/footer/cgu.php">CGU</a> 
                 </li>
             </ul>
         </footer>
