@@ -5,7 +5,7 @@ session_start();
 // On inclut la connexion à la base
 require_once('connect.php');
 
-$sql = 'SELECT * FROM etudiant INNER JOIN authentifiant ON etudiant.ID_Auth = authentifiant.ID_Auth';
+$sql = 'SELECT `Id_Etudiant`,`N_Etudiant`,`P_Etudiant`,`Cv`,`Lettre_Motivation`,`Photo`,`Id_Promotion`,`Login`,`Mdp`,`Admin`,`Pilote` FROM etudiant INNER JOIN authentifiant ON etudiant.ID_Auth = authentifiant.ID_Auth';
 
 // On prépare la requête
 $query = $db->prepare($sql);
@@ -25,6 +25,8 @@ require_once('close.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des produits</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
@@ -57,19 +59,21 @@ require_once('close.php');
                         <th>Lettre de motivation</th>
                         <th>Photo</th>
                         <th>Promotion</th>
-                        <th>Pilote</th>
                         <th>Email</th>
                         <th>Mot de passe</th>
-                        <th>Admin</th>
-                        <th>Modifier</th>
-                        <th>Supprimer</th>
+                        <th>Statut Admin</th>
+                        <th>Statut Pilote</th>
+                        <th></th>
+                        <th></th>
                     </thead>
                     <tbody>
-
+                        <br>
+                        <a href="add.php" class="btn btn-primary">Ajouter un étudiant</a>
                         <?php
                         // On boucle sur la variable result
                         foreach($result as $etudiant){
                         ?>
+                        <br>
                             <tr>
                                 <td><?= $etudiant['Id_Etudiant'] ?></td>
                                 <td><?= $etudiant['N_Etudiant'] ?></td>
@@ -78,19 +82,18 @@ require_once('close.php');
                                 <td><?= $etudiant['Lettre_Motivation'] ?></td>
                                 <td><?= $etudiant['Photo'] ?></td>
                                 <td><?= $etudiant['Id_Promotion'] ?></td>
-                                <td><?= $etudiant['Id_Pilote'] ?></td>
                                 <td><?= $etudiant['Login'] ?></td>
                                 <td><?= $etudiant['Mdp'] ?></td>
                                 <td><?= $etudiant['Admin'] ?></td>
-                                <td><a href="edit.php?Id_Etudiant=<?= $etudiant['Id_Etudiant'] ?>">Modi</a></td> 
-                                <td><a href="delete.php?Id_Etudiant=<?= $etudiant['Id_Etudiant'] ?>">Supp</a></td>
+                                <td><?= $etudiant['Pilote'] ?></td>
+                                <td><a href="edit.php?Id_Etudiant=<?= $etudiant['Id_Etudiant'] ?>"><i class="fa solid fa-pen"></i></a></td> 
+                                <td><a href="delete.php?Id_Etudiant=<?= $etudiant['Id_Etudiant'] ?>"><i class="fa solid fa-trash"></i></a></td>
                             </tr>
                         <?php
                         }
                         ?>
                     </tbody>
                 </table>
-                <a href="add.php" class="btn btn-primary">Ajouter un étudiant</a>
             </section>
         </div>
     </main>

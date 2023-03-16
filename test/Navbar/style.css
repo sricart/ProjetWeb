@@ -21,6 +21,13 @@ header {
     padding: 0 100px;
 }
 
+.search {
+    border-radius: 20px;
+    width: 400px;
+    height: 40px;
+    padding: 5px;
+}
+
 .logo {
     font-size: 28px;
     font-weight: bold;
@@ -39,7 +46,7 @@ header {
     display: block;
     color: #fefefe;
     font-size: 20px;
-    padding: 10px 25px;
+    padding: 10px 10px;
     border-radius: 50px;
     transition: 0.2s;
     margin: 0 5px;
