@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/style.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Accueil</title>   
+        <title>Offres </title>
     </head>
     <body>
     <header>
@@ -27,17 +27,17 @@
                         <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/accueil_pilote.php">Accueil</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/etudiants_pilote.php">Etudiants </a>
+                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/etudiants_pilote.php">Etudiants</a>
                     </li>
                     <li>
                         <a>Entreprises et Offres</a>
                         <div class="sous-menu">
                             <ul>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/entreprises_pilote.php" > Entreprises </a>
+                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/entreprises_pilote.php"> Entreprises </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/offres_pilote.php" > Offres </a>
+                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/offres_pilote.php"> Offres </a>
                                 </li>
                             </ul>
                         </div>  
