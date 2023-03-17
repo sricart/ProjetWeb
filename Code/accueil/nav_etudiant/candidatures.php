@@ -4,14 +4,13 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title> Compte </title>
-        
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/style.css">
+        <title> Candidatures </title>
     </head>
     <body>
-    <header>
+        <header>
             <div class="logo"> <img src="http://localhost/B4/projet/L3/code/image/logo.png">
             </div>
             <div class="search-bar">
@@ -25,36 +24,36 @@
             <nav class="nav-bar">
                 <ul>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/accueil_admin.php">Accueil</a> 
+                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/accueil_etudiant.php">Accueil</a> 
                     </li>
                     <li>
-                        <a>Utilisateurs</a> 
+                        <a>Pistes</a> 
                         <div class="sous-menu">
                             <ul>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/etudiants_admin.php">Etudiants </a>
+                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/candidatures.php" >Candidatures </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/pilotes_admin.php">Pilotes </a>
+                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/liste_souhaits.php" >Liste de souhaits </a>
                                 </li>
                             </ul>
                         </div>  
                     </li>
                     <li>
-                        <a>Entreprises et Offres</a>
+                        <a>Entreprises et Offres</a> 
                         <div class="sous-menu">
                             <ul>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/entreprises_admin.php" > Entreprises </a>
+                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/entreprises_etudiant.php" > Entreprises </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/offres_admin.php" > Offres </a>
+                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/offres_etudiant.php" > Offres </a>
                                 </li>
                             </ul>
                         </div>  
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/compte_admin.php">Votre compte</a> 
+                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/compte_etudiant.php">Votre compte</a> 
                     </li>
                 </ul>
             </nav>
@@ -66,22 +65,22 @@
         <footer>
             <ul>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/actualites.php">Actualités</a> 
+                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/footer/actualites.php">Actualités</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/a_propos.php">À Propos</a> 
+                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/footer/a_propos.php">À Propos</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/support.php">Support</a> 
+                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/footer/support.php">Support</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/mentions_legales.php">Mentions Légales</a> 
+                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/footer/mentions_legales.php">Mentions Légales</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/cgu.php">CGU</a> 
+                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/footer/cgu.php">CGU</a> 
                 </li>
             </ul>
         </footer>
-        <script src="http://localhost/B4/Projet/L3/code/accueil/nav_admin/app.js"> </script>
+        <script src="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/app.js"> </script>
     </body>
 </html>
