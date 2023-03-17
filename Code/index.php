@@ -19,7 +19,7 @@ $success = "";
 // Test de connexion à la BDD
 try {
     $connexion = mysqli_connect($serveur, $username, $password, $bdd);
-    echo 'Connexion réussie à la base de données' . "<br>";
+    //echo 'Connexion réussie à la base de données' . "<br>";
 } catch(PDOException $e) {
     echo 'Erreur lors de la connexion à la base de données';
     die;
@@ -58,53 +58,52 @@ if(isset($_POST['submit'])){
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styl.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title> Login Form </title>
 </head>
 <body>
-<img class="imglog" src="http://localhost/B4/Projet/L3/code/image/Illustration_pageco.png" title= "bienvenue" >
-<div class="container">
-    <form method="post">
-        <div class="form-input">
-            <p class="error"> <?php echo $error; ?></p> <p class="success"> <?php echo $success; ?> </p>
-            <i class="fa fa-user fa-2x cust" aria-hidden="true"></i>
-            <input type="text" name="uname" value="" placeholder="Enter Username" required><br /> <br>
-            <i class="fa fa-lock fa-2x cust" aria-hidden="true"> </i>
-            <input type="password" name="pass" value="" placeholder="Enter Password" required><br />
-            <a href="mdp_oublie.php"> Mot de passe oublié ? </a> <br><br>
-            <input type="submit" name="submit" value="Login">
-            <input type="reset" name="reset" value="Reset">
+    <div class="container">
+        <div class="image">
+            <img src="http://localhost/B4/Projet/L3/code/image/Illustration_pageco.png" title= "bienvenue" >
         </div>
-    </form>
-</div>
+        <form method="post">
+            <div class="form-input">
+                <i class="fa fa-user fa-2x cust" aria-hidden="true"></i>
+                <input type="text" name="uname" value="" placeholder="Enter Username" required><br /> <br>
+                <i class="fa fa-lock fa-2x cust" aria-hidden="true"> </i>
+                <input type="password" name="pass" value="" placeholder="Enter Password" required><br />
+                <a href="mdp_oublie.php"> Mot de passe oublié ? </a> <br><br>
+                <input type="submit" name="submit" value="Login">
+                <input type="reset" name="reset" value="Reset">
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        <footer>
+            <ul>
+                <li>
+                    <a href="http://localhost/B4/Projet/L3/code/footer/actualites.php">Actualités</a> 
+                </li>
+                <li>
+                    <a href="http://localhost/B4/Projet/L3/code/footer/a_propos.php">À Propos</a> 
+                </li>
+                <li>
+                    <a href="http://localhost/B4/Projet/L3/code/footer/support.php">Support</a> 
+                </li>
+                <li>
+                    <a href="http://localhost/B4/Projet/L3/code/footer/mentions_legales.php">Mentions Légales</a> 
+                </li>
+                <li>
+                    <a href="http://localhost/B4/Projet/L3/code/footer/cgu.php">CGU</a> 
+                </li>
+            </ul>
+        </footer>
+    </div>
+
 </body>
 </html>
-
-<footer>
-    <ul>
-        <li>
-            <a href="http://localhost/B4/Projet/L3/code/footer/actualites.php">Actualités</a> 
-        </li>
-        <li>
-            <a href="http://localhost/B4/Projet/L3/code/footer/a_propos.php">À Propos</a> 
-        </li>
-        <li>
-            <a href="http://localhost/B4/Projet/L3/code/footer/support.php">Support</a> 
-        </li>
-        <li>
-            <a href="http://localhost/B4/Projet/L3/code/footer/mentions_legales.php">Mentions Légales</a> 
-        </li>
-        <li>
-            <a href="http://localhost/B4/Projet/L3/code/footer/cgu.php">CGU</a> 
-        </li>
-    </ul>
-</footer>
-
-
-
-
-
 
 <?php
 /*
