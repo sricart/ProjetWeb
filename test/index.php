@@ -57,7 +57,7 @@ if(isset($_POST['submit'])){
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="projet.css">
+        <link rel="stylesheet" href="projet1.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title> Login Form </title>
     </head>
@@ -81,7 +81,7 @@ if(isset($_POST['submit'])){
                     <span></span>
                 </a>
                 <a >
-                    <button class="button" type="reset">reset</button>
+                    <input class="button" type="reset" value="reset" >
                     <span></span>
                     <span></span>
                     <span></span>
@@ -92,6 +92,7 @@ if(isset($_POST['submit'])){
     </body>
     
 </html>
+
 
 
 
