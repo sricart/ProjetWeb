@@ -12,17 +12,18 @@ html {
     position: absolute;
     top: 50%;
     left: 83%;
-    width: 400px;
-    padding: 40px;
+    transform: translateX(-83%);
+    width: 25em;
+    padding: 2.5em;
     transform: translate(-50%, -50%);
     background: #474b4c;
     box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0,0,0,.6);
-    border-radius: 10px;
+    box-shadow: 0 0.938em 1.563em rgba(0,0,0,.6);
+    border-radius: 0.625em;
   }
   
   .login-box h2 {
-    margin: 0 0 30px;
+    margin: 0 0 1.875em;
     padding: 0;
     color: #fff;
     text-align: center;
@@ -34,12 +35,12 @@ html {
   
   .login-box .user-box input {
     width: 100%;
-    padding: 10px 0;
-    font-size: 16px;
+    padding: 0.625em 0;
+    font-size: 1em;
     color: #fff;
-    margin-bottom: 30px;
+    margin-bottom: 1.875em;
     border: none;
-    border-bottom: 1px solid #fff;
+    border-bottom: 0.063em solid #fff;
     outline: none;
     background: transparent;
   }
@@ -47,8 +48,8 @@ html {
     position: absolute;
     top:0;
     left: 0;
-    padding: 10px 0;
-    font-size: 16px;
+    padding: 0.625em 0;
+    font-size: 1em;
     color: #fff;
     pointer-events: none;
     transition: .5s;
@@ -56,7 +57,7 @@ html {
   
   .login-box .user-box input:focus ~ label,
   .login-box .user-box input:valid ~ label {
-    top: -20px;
+    top: -1.25em;
     left: 0;
     color: #f1e0c5;
     font-size: 0.em;
@@ -65,25 +66,25 @@ html {
   .login-box form a {
     position: relative;
     display: inline-block;
-    padding: 10px 20px;
+    padding: 0.625em 1.25em;
     color: #03e9f4;
-    font-size: 16px;
+    font-size: 1em;
     text-decoration: none;
     text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
-    margin-top: 40px;
-    letter-spacing: 4px
+    margin-top: 2.5em;
+    letter-spacing: 0.25em
   }
   
   .login-box a:hover {
     background: #c6c5b9;
     color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px black,
-                0 0 25px black,
-                0 0 50px black,
-                0 0 100px black;
+    border-radius: 0.313em;
+    box-shadow: 0 0 0.313em black,
+                0 0 1.563em black,
+                0 0 3.125em black,
+                0 0 6.25em black;
   }
   
   .login-box a span {
@@ -95,7 +96,7 @@ html {
   .login-box a span:nth-child(2) {
     top: -100%;
     right: 0;
-    width: 2px;
+    width: 0.125em;
     height: 100%;
     background: linear-gradient(180deg, transparent, black);
     animation: btn-anim2 2s linear infinite;
@@ -115,7 +116,7 @@ html {
     bottom: 0;
     right: -100%;
     width: 100%;
-    height: 2px;
+    height: 0.125em;
     background: linear-gradient(270deg, transparent, black);
     animation: btn-anim3 2s linear infinite;
     animation-delay: 1s
@@ -133,7 +134,7 @@ html {
   .login-box a span:nth-child(4) {
     bottom: -100%;
     left: 0;
-    width: 2px;
+    width: 0.125em;
     height: 100%;
     background: linear-gradient(360deg, transparent, black);
     animation: btn-anim4 2s linear infinite;
@@ -144,7 +145,7 @@ html {
     top: 0;
     left: -100%;
     width: 100%;
-    height: 2px;
+    height: 0.125em;
     background: linear-gradient(90deg, transparent, black);
     animation: btn-anim1 2s linear infinite;
   }
@@ -169,8 +170,8 @@ html {
   }
 .button {
     background-color: transparent;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 0.625em 1.25em;
+    font-size: 1em;
     color: white;
 }
 
@@ -184,13 +185,13 @@ html {
   
 
 footer{
-  height: 70px;
+  height: 4.375em;
   background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fefefe;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: bold;
   position: absolute;
   bottom: 0%;
@@ -203,11 +204,11 @@ footer a{
   color: white;
   display: block;
   color: #fefefe;
-  font-size: 20px;
-  padding: 10px 10px;
-  border-radius: 50px;
+  font-size: 1.25em;
+  padding: 0.625em 0.625em;
+  border-radius: 3.125em;
   transition: 0.2s;
-  margin: 0 5px;
+  margin: 0 0.313em;
   font-weight: bold;
   margin: 0 auto;
 
@@ -225,7 +226,7 @@ footer ul {
 }
 
 footer li {
-  margin: 0 10px;
+  margin: 0 0.625em;
 }
 
 .logo{
@@ -233,3 +234,8 @@ footer li {
   top:10%;
   right: 10.60%;
 }
+
+@media screen and (max-width: 1200px){
+  
+}
+

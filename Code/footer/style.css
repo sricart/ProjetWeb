@@ -1,0 +1,208 @@
+/* Modification de toute la page */
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    font-family: "Poppins";
+    box-sizing: border-box; 
+}
+
+/* Modification du body */
+body {
+    background-color:#fefefe;
+}
+
+/* Modification du header */
+header {
+    width: 100%;
+    height: 80px;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 100px;
+}
+
+/* Modification du logo */
+.logo {
+    font-weight: bold;
+    color: #fefefe;
+    display: flex;
+    justify-content: center;
+}
+
+/* Modification de la barre de recherche */
+.search {
+    border-radius: 20px;
+    width: 400px;
+    height: 40px;
+    padding: 5px;
+}
+
+/* Modification du décalage */
+.hamburger {
+    display: none;
+}
+
+/* Modification de la barre des menus*/
+
+.nav-bar ul {
+    display: flex;
+}
+
+.sous-menu{
+    display: none;
+}
+
+.nav-bar ul li:hover .sous-menu{
+    display: block;
+    position: absolute;
+    background: black;
+    margin-left: -20px;
+}
+
+.nav-bar ul li:hover .sous-menu ul{
+    display: block;
+    margin: 20px;
+}
+
+.nav-bar ul li:hover .sous-menu ul li{
+    width: 200px;
+    padding: 2px;
+    border-bottom: 1px dotted black;
+    background: transparent;
+    border-radius: 0;
+    text-align: left;
+}
+
+.nav-bar ul li a {
+    display: block;
+    color: #fefefe;
+    font-size: 20px;
+    padding: 10px 10px;
+    border-radius: 50px;
+    transition: 0.2s;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+.nav-bar ul li a:hover {
+    color: #11101b;
+    background-color: #fefefe;
+}
+
+.nav-bar ul li a.active {
+    color:#11101b;
+    background-color: #fefefe;
+}
+
+/* gestion de la taille de l'écran*/
+
+@media only screen and (max-width: 1320px) {
+    header {
+        padding: 0 50px;
+    }
+}
+
+@media only screen and (max-width: 1320px) {
+    header {
+        padding: 0 40px;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    header {
+        padding: 0 30px;
+    }
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+    .hamburger .line {
+        width: 30px;
+        height: 3px;
+        background-color: #fefefe;
+        margin: 6px 0;
+    }
+    .nav-bar {
+        height: 0;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        background-color: #11101b;
+        transition: 0.2s;
+        overflow: hidden;
+    }
+    .nav-bar.active {
+        height: 450px;
+    }
+    .nav-bar ul {
+        display: block;
+        width: fit-content;
+        margin: 80px auto 0 auto;
+        text-align: center;
+        transition: 0.5s;
+        opacity: 0;
+    }
+    .nav-bar.active ul {
+        opacity: 1;
+    }
+    .nav-bar ul li a {
+        margin-bottom: 2px;
+        letter-spacing: 3px;
+    }
+    .nav-bar ul li:hover .sous-menu ul li{
+        width: 200px;
+        padding: 0px;
+        border-bottom: 1px dotted black;
+        background: transparent;
+        border-radius: 0;
+        text-align: left;
+    }
+}
+
+/* Autres modifier à faire (body au besoin, footer, ... */
+
+footer{
+    height: 70px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fefefe;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+footer a{
+    
+    color: white;
+    display: block;
+    color: #fefefe;
+    font-size: 20px;
+    padding: 10px 10px;
+    border-radius: 50px;
+    transition: 0.2s;
+    margin: 0 5px;
+    font-weight: bold;
+    margin: 0 auto;
+
+}
+
+footer ul li a:hover {
+    color: #11101b;
+    background-color: #fefefe;
+}
+
+footer ul {
+    
+    display: flex;
+    justify-content: center;
+}
+  
+footer li {
+    margin: 0 10px;
+}

@@ -43,7 +43,17 @@
                         </div>  
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/compte_pilote.php">Votre compte</a> 
+                        <a>Votre compte</a>
+                        <div class="sous-menu">
+                            <ul>
+                                <li>
+                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_pilote/compte_pilote.php">Compte</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/B4/Projet/L3/code/index.php">Déconnexion </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </nav>
