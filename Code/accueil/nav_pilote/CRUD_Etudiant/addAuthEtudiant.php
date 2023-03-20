@@ -24,7 +24,7 @@ if($_POST)
 
         require_once('close.php');
         $_SESSION['message'] = "Etudiant ajouté";
-        header('Location: http://localhost/B4/projet/L3/Code/accueil/nav_pilote/CRUD_Etudiant/addEtudiant.php');
+        header('Location: http://localhost/Code/accueil/nav_pilote/CRUD_Etudiant/addEtudiant.php');
     }
     else
     {

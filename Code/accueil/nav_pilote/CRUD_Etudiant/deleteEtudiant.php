@@ -28,7 +28,7 @@ if(isset($_GET['Id_Etudiant']) && !empty($_GET['Id_Etudiant']))
     if(!$etudiant)
     {
         $_SESSION['erreur'] = "Cet id n'existe pas";
-        header('Location: http://localhost/B4/projet/L3/Code/accueil/nav_pilote/etudiants_pilote.php');
+        header('Location: http://localhost/Code/accueil/nav_pilote/etudiants_pilote.php');
         die();
     }
 
@@ -43,12 +43,12 @@ if(isset($_GET['Id_Etudiant']) && !empty($_GET['Id_Etudiant']))
     // On exécute la requête
     $query->execute();
     $_SESSION['message'] = "Etudiant supprimé";
-    header('Location: http://localhost/B4/projet/L3/Code/accueil/nav_pilote/etudiants_pilote.php');
+    header('Location: http://localhost/Code/accueil/nav_pilote/etudiants_pilote.php');
 }
 
 else
 {
     $_SESSION['erreur'] = "URL invalide";
-    header('Location: http://localhost/B4/projet/L3/Code/accueil/nav_pilote/etudiants_pilote.php');
+    header('Location: http://localhost/Code/accueil/nav_pilote/etudiants_pilote.php');
 }
 ?>

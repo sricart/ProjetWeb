@@ -230,12 +230,47 @@ footer li {
 }
 
 .logo{
-  position: absolute;
-  top:10%;
-  right: 10.60%;
+  margin: 0 0 1.875em;
+  padding: 0;
+  color: #fff;
+  text-align: center;
 }
 
-@media screen and (max-width: 1200px){
-  
+@media screen and (max-width: 1400px){
+  .login-box{
+    position: fixed;
+    left: 50%;
+  }
+
+}
+
+@media screen and (max-width: 1000px){
+  .image{
+    visibility: hidden;
+  }
+}
+
+@media screen and (max-width: 771px){
+  footer{
+    font-size: 0.8em;
+  }
+}
+
+@media screen and (max-width: 600px){
+  footer{
+    font-size: 0.7em;
+  }
+}
+
+@media screen and (max-width: 550px){
+  footer{
+    font-size: 0.6em;
+  }
+}
+
+@media screen and (max-width: 470px){
+  footer{
+    font-size: 0.6em;
+  }
 }
 

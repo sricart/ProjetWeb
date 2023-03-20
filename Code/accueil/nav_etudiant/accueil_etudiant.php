@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/style.css">
+        <link rel="stylesheet" href="http://localhost/code/accueil/nav_etudiant/style.css">
         <title> Accueil </title>
     </head>
     <body>
         <header>
-            <div class="logo"> <img src="http://localhost/B4/projet/L3/code/image/logo.png">
+            <div class="logo"> <img src="http://localhost/code/image/logo.png">
             </div>
             <div class="search-bar">
                 <input type="search" class="search" placeholder="rechercher">
@@ -24,17 +24,17 @@
             <nav class="nav-bar">
                 <ul>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/accueil_etudiant.php">Accueil</a> 
+                        <a href="http://localhost/code/accueil/nav_etudiant/accueil_etudiant.php">Accueil</a> 
                     </li>
                     <li>
                         <a>Pistes</a> 
                         <div class="sous-menu">
                             <ul>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/candidatures.php" >Candidatures </a>
+                                    <a href="http://localhost/code/accueil/nav_etudiant/candidatures.php" >Candidatures </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/liste_souhaits.php" >Liste de souhaits </a>
+                                    <a href="http://localhost/code/accueil/nav_etudiant/liste_souhaits.php" >Liste de souhaits </a>
                                 </li>
                             </ul>
                         </div>  
@@ -44,10 +44,10 @@
                         <div class="sous-menu">
                             <ul>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/entreprises_etudiant.php" > Entreprises </a>
+                                    <a href="http://localhost/code/accueil/nav_etudiant/entreprises_etudiant.php" > Entreprises </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/offres_etudiant.php" > Offres </a>
+                                    <a href="http://localhost/code/accueil/nav_etudiant/offres_etudiant.php" > Offres </a>
                                 </li>
                             </ul>
                         </div>  
@@ -57,10 +57,10 @@
                         <div class="sous-menu">
                             <ul>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/compte_etudiant.php">Compte</a>
+                                    <a href="http://localhost/code/accueil/nav_etudiant/compte_etudiant.php">Compte</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/index.php">Déconnexion </a>
+                                    <a href="http://localhost/code/index.php">Déconnexion </a>
                                 </li>
                             </ul>
                         </div>
@@ -75,22 +75,22 @@
         <footer>
             <ul>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/footer/actualites.php">Actualités</a> 
+                    <a href="http://localhost/code/accueil/nav_etudiant/footer/actualites.php">Actualités</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/footer/a_propos.php">À Propos</a> 
+                    <a href="http://localhost/code/accueil/nav_etudiant/footer/a_propos.php">À Propos</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/footer/support.php">Support</a> 
+                    <a href="http://localhost/code/accueil/nav_etudiant/footer/support.php">Support</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/footer/mentions_legales.php">Mentions Légales</a> 
+                    <a href="http://localhost/code/accueil/nav_etudiant/footer/mentions_legales.php">Mentions Légales</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/footer/cgu.php">CGU</a> 
+                    <a href="http://localhost/code/accueil/nav_etudiant/footer/cgu.php">CGU</a> 
                 </li>
             </ul>
         </footer>
-        <script src="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/app.js"> </script>
+        <script src="http://localhost/code/accueil/nav_etudiant/app.js"> </script>
     </body>
 </html>

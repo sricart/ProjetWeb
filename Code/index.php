@@ -35,13 +35,13 @@ if(isset($_POST['submit'])){
         $row = mysqli_fetch_assoc($result);
 
         if($row['Admin'] == 1) {
-            header('location: accueil/nav_admin/accueil_admin.php');
+            header('location: http://localhost/code/accueil/nav_admin/accueil_admin.php');
             exit;
         } elseif($row['Pilote'] == 1) {
-            header('location: accueil/nav_pilote/accueil_pilote.php');
+            header('location: http://localhost/code/accueil/nav_pilote/accueil_pilote.php');
             exit;
         } elseif($row['Login'] == $uname && $row['Mdp'] == $pass) {
-            header('location: accueil/nav_etudiant/accueil_etudiant.php');
+            header('location: http://localhost/code/accueil/nav_etudiant/accueil_etudiant.php');
             exit;
         } else {
             $error = "Login et/ou mot de passe incorrect";
@@ -58,18 +58,17 @@ if(isset($_POST['submit'])){
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title> Authentification </title>
     </head>
     <body>
         <div class="container">
             <div class="image">
-                <img src="http://localhost/B4/projet/L3/code/image/co.png" title= "bienvenue" >
-            </div>
-            <div class="logo">
-                <img src="http://localhost/B4/projet/L3/code/image/logo.png" title="logo">
+                <img src="http://localhost/code/image/co.png" title= "bienvenue" >
             </div>
             <div class="login-box">
+                <div class="logo">
+                    <img src="http://localhost/code/image/logo.png" title="logo">
+                </div>
                 <h2>S'authentifier</h2>
                 <form method="post">
                     <div class="user-box">
@@ -101,19 +100,19 @@ if(isset($_POST['submit'])){
             <footer>
                 <ul>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/footer/actualites.php">Actualités</a> 
+                        <a href="http://localhost/code/footer/actualites.php">Actualités</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/footer/a_propos.php">À Propos</a> 
+                        <a href="http://localhost/code/footer/a_propos.php">À Propos</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/footer/support.php">Support</a> 
+                        <a href="http://localhost/code/footer/support.php">Support</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/footer/mentions_legales.php">Mentions Légales</a> 
+                        <a href="http://localhost/code/footer/mentions_legales.php">Mentions Légales</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/footer/cgu.php">CGU</a> 
+                        <a href="http://localhost/code/footer/cgu.php">CGU</a> 
                     </li>
                 </ul>
             </footer>

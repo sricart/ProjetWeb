@@ -206,3 +206,8 @@ footer ul {
 footer li {
     margin: 0 10px;
 }
+
+*{
+    color: aqua;
+    background-color: blue;
+}
