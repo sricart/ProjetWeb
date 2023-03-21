@@ -44,10 +44,10 @@ if(isset($_POST['submit'])){
             header('location: http://localhost/code/accueil/nav_etudiant/accueil_etudiant.php');
             exit;
         } else {
-            $error = "Login et/ou mot de passe incorrect";
+           
         }
     } else {
-        $error = "Login et/ou mot de passe incorrect";
+       
     }
 }
 ?>
@@ -81,6 +81,7 @@ if(isset($_POST['submit'])){
                     <div class="user-box">
                         <input type="password" name="pass" required="">
                         <label>Mot de passe</label>
+                        <a class="mdp_oublie" href="mdp_oublie.php"> Mot de passe oublié ? </a>
                     </div>
                     <a >
                         <input class="button" type="submit" name="submit" value="Connexion" aria-labelledby="Login">
@@ -123,19 +124,3 @@ if(isset($_POST['submit'])){
     </body>
     
 </html>
-
-
-
-
-
-
-
-
-<?php
-    /* Vérifier si Gandalf est dans la BDD 
-    $req_str = "SELECT * FROM utilisateurs WHERE pseudo = 'Gandalf';";
-    $stmt = $conn->query($req_str);
-    if(!$stmt){echo "erreur de requête : $req_str\n";die;}
-    if($stmt->fetch()){echo "Utilisateur Gandalf présent.\n"; $stmt->closeCursor();}
-    else{echo "Utilisateur Gandalf introuvable";} */
-?>
