@@ -56,7 +56,9 @@ if(isset($_POST['submit'])){
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
+        <html lang="fr">
         <link rel="stylesheet" href="style.css">
         <title> Authentification </title>
     </head>
@@ -69,6 +71,7 @@ if(isset($_POST['submit'])){
                 <div class="logo">
                     <img src="http://localhost/code/image/logo.png" title="logo">
                 </div>
+                <br>
                 <h2>S'authentifier</h2>
                 <form method="post">
                     <div class="user-box">
@@ -80,14 +83,14 @@ if(isset($_POST['submit'])){
                         <label>Mot de passe</label>
                     </div>
                     <a >
-                        <input class="button" type="submit" name="submit" value="Connexion">
+                        <input class="button" type="submit" name="submit" value="Connexion" aria-labelledby="Login">
                         <span></span>
                         <span></span>
                         <span></span>
                         <span></span>
                     </a>
                     <a class="btnreset">
-                        <input class="button" type="reset" value="Effacer" >
+                        <input class="button" type="reset" value="Effacer" aria-labelledby="reset">
                         <span></span>
                         <span></span>
                         <span></span>
