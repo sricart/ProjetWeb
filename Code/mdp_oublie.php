@@ -7,6 +7,8 @@
         <title> Mot de passe oublié </title>
     </head>
     <body>
-           Tu l'as oublié dommage connard ! 
+        <canvas id="canvas"></canvas>
+        <a href="https://codepen.io/Loopez10/full/dMaVdQ" class="full-screen" target="_blank"></a>
+        <script type="text/javascript" src="echec.js"></script>
     </body>
 </html>
