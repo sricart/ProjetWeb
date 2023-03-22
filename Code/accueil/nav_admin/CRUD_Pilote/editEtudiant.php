@@ -3,40 +3,37 @@
 session_start();
 
 if($_POST){
-    if(isset($_POST['Id_Etudiant'])
-    && isset($_POST['N_Etudiant'])
-    && isset($_POST['P_Etudiant'])
-    && isset($_POST['Id_Promotion'])
+    if(isset($_POST['Id_Pilote'])
+    && isset($_POST['N_Pilote'])
+    && isset($_POST['P_Pilote'])
     && isset($_POST['Login'])
     && isset($_POST['Mdp'])){
         // On inclut la connexion à la base
         require_once('connect.php');
 
         // On nettoie les données envoyées
-        $id = strip_tags($_POST['Id_Etudiant']);
-        $nom = strip_tags($_POST['N_Etudiant']);
-        $prenom = strip_tags($_POST['P_Etudiant']);
-        $promo = strip_tags($_POST['Id_Promotion']);
+        $id = strip_tags($_POST['Id_Pilote']);
+        $nom = strip_tags($_POST['N_Pilote']);
+        $prenom = strip_tags($_POST['P_Pilote']);
         $log = strip_tags($_POST['Login']);
         $mdp = strip_tags($_POST['Mdp']);
 
-        $sql = 'UPDATE `etudiant` INNER JOIN `authentifiant` ON etudiant.Id_Auth = authentifiant.Id_Auth SET `N_Etudiant`=:nom, `P_Etudiant`=:prenom, `Id_Promotion`=:promo, `Login`=:log, `Mdp`=:mdp WHERE `Id_Etudiant`= :id;';
+        $sql = 'UPDATE `pilote` INNER JOIN `authentifiant` ON pilote.Id_Auth = authentifiant.Id_Auth SET `N_Pilote`=:nom, `P_Pilote`=:prenom, `Login`=:log, `Mdp`=:mdp WHERE `Id_Pilote`= :id;';
 
         $query = $db->prepare($sql);
 
         $query->bindValue(':id', $id, PDO::PARAM_INT);
         $query->bindValue(':nom', $nom, PDO::PARAM_STR);
         $query->bindValue(':prenom', $prenom, PDO::PARAM_STR);
-        $query->bindValue(':promo', $promo, PDO::PARAM_STR);
         $query->bindValue(':log', $log, PDO::PARAM_STR);
         $query->bindValue(':mdp', $mdp, PDO::PARAM_STR);
 
         $query->execute();
 
-        $_SESSION['message'] = "Etudiant modifié";
+        $_SESSION['message'] = "Pilote modifié";
         require_once('close.php');
 
-        header('Location: http://localhost/Code/accueil/nav_pilote/etudiants_pilote.php');
+        header('Location: http://localhost/Code/accueil/nav_admin/pilotes_admin.php');
     }
     else
     {
@@ -45,13 +42,13 @@ if($_POST){
 }
 
 // Est-ce que l'id existe et n'est pas vide dans l'URL
-if(isset($_GET['Id_Etudiant']) && !empty($_GET['Id_Etudiant'])){
+if(isset($_GET['Id_Pilote']) && !empty($_GET['Id_Pilote'])){
     require_once('connect.php');
 
     // On nettoie l'id envoyé
-    $id = strip_tags($_GET['Id_Etudiant']);
+    $id = strip_tags($_GET['Id_Pilote']);
 
-    $sql = 'SELECT * FROM `etudiant` INNER JOIN authentifiant ON etudiant.Id_Auth = authentifiant.Id_Auth WHERE `Id_Etudiant` = :id;';
+    $sql = 'SELECT * FROM `pilote` INNER JOIN authentifiant ON pilote.Id_Auth = authentifiant.Id_Auth WHERE `Id_Pilote` = :id;';
 
     // On prépare la requête
     $query = $db->prepare($sql);
@@ -68,11 +65,11 @@ if(isset($_GET['Id_Etudiant']) && !empty($_GET['Id_Etudiant'])){
     // On vérifie si le produit existe
     if(!$etudiant){
         $_SESSION['erreur'] = "Cet id n'existe pas";
-        header('Location: http://localhost/Code/accueil/nav_pilote/etudiants_pilote.php');
+        header('Location: http://localhost/Code/accueil/nav_admin/pilotes_admin.php');
     }
 }else{
     $_SESSION['erreur'] = "URL invalide";
-    header('Location: http://localhost/Code/accueil/nav_pilote/etudiants_pilote.php');
+    header('Location: http://localhost/Code/accueil/nav_admin/pilotes_admin.php');
 }
 
 ?>
@@ -101,15 +98,11 @@ if(isset($_GET['Id_Etudiant']) && !empty($_GET['Id_Etudiant'])){
                 <form method="post">
                     <div class="form-group">
                         <label for="N_Etudiant">Nom</label>
-                        <input type="text" id="N_Etudiant" name="N_Etudiant" class="form-control" value="<?= $etudiant['N_Etudiant']?>">
+                        <input type="text" id="N_Pilote" name="N_Pilote" class="form-control" value="<?= $etudiant['N_Pilote']?>">
                     </div>
                     <div class="form-group">
                         <label for="P_Etudiant">Prénom</label>
-                        <input type="text" id="P_Etudiant" name="P_Etudiant" class="form-control" value="<?= $etudiant['P_Etudiant']?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="Id_Promotion">Promotion</label>
-                        <input type="text" id="Id_Promotion" name="Id_Promotion" class="form-control" value="<?= $etudiant['Id_Promotion']?>">
+                        <input type="text" id="P_Pilote" name="P_Pilote" class="form-control" value="<?= $etudiant['P_Pilote']?>">
                     </div>
                     <div class="form-group">
                         <label for="Login">Email</label>
@@ -119,7 +112,7 @@ if(isset($_GET['Id_Etudiant']) && !empty($_GET['Id_Etudiant'])){
                         <label for="Mdp">Mot de passe</label>
                         <input type="text" id="Mdp" name="Mdp" class="form-control" value="<?= $etudiant['Mdp']?>">
                     </div>
-                    <input type="hidden" value="<?= $etudiant['Id_Etudiant']?>" name="Id_Etudiant">
+                    <input type="hidden" value="<?= $etudiant['Id_Pilote']?>" name="Id_Pilote">
                     <button class="btn btn-primary">Envoyer</button>
                 </form>
             </section>

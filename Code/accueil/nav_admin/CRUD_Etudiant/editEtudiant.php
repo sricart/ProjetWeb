@@ -36,7 +36,7 @@ if($_POST){
         $_SESSION['message'] = "Etudiant modifié";
         require_once('close.php');
 
-        header('Location: http://localhost/Code/accueil/nav_pilote/etudiants_pilote.php');
+        header('Location: http://localhost/Code/accueil/nav_admin/etudiants_pilote.php');
     }
     else
     {
@@ -68,11 +68,11 @@ if(isset($_GET['Id_Etudiant']) && !empty($_GET['Id_Etudiant'])){
     // On vérifie si le produit existe
     if(!$etudiant){
         $_SESSION['erreur'] = "Cet id n'existe pas";
-        header('Location: http://localhost/Code/accueil/nav_pilote/etudiants_pilote.php');
+        header('Location: http://localhost/Code/accueil/nav_admin/etudiants_pilote.php');
     }
 }else{
     $_SESSION['erreur'] = "URL invalide";
-    header('Location: http://localhost/Code/accueil/nav_pilote/etudiants_pilote.php');
+    header('Location: http://localhost/Code/accueil/nav_admin/etudiants_pilote.php');
 }
 
 ?>

@@ -27,7 +27,7 @@ if($_POST)
 
         require_once('close.php');
 
-        header('Location: http://localhost/Code/accueil/nav_pilote/etudiants_pilote.php');
+        header('Location: http://localhost/Code/accueil/nav_admin/etudiants_pilote.php');
     }
     else
     {

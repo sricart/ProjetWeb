@@ -8,13 +8,13 @@ if($_POST)
     && isset($_POST['Mdp']) && !empty($_POST['Mdp']))
     {
         // On inclut la connexion à la base
-        require_once('CRUD_Etudiant/connect.php');
+        require_once('connect.php');
 
         // On nettoie les données envoyées
         $log = strip_tags($_POST['Login']);
         $mdp = strip_tags($_POST['Mdp']);
 
-        $sql = 'INSERT INTO `authentifiant` (`Login`, `Mdp`, `Admin` , `Pilote`) VALUES (:log, :mdp, "0", "0");';
+        $sql = 'INSERT INTO `authentifiant` (`Login`, `Mdp`, `Admin` , `Pilote`) VALUES (:log, :mdp, "0", "1");';
         $query = $db->prepare($sql);
 
         $query->bindValue(':log', $log, PDO::PARAM_STR);
@@ -23,8 +23,8 @@ if($_POST)
         $query->execute();
 
         require_once('close.php');
-        $_SESSION['message'] = "Etudiant ajouté";
-        header('Location: http://localhost/Code/accueil/nav_pilote/CRUD_Etudiant/addEtudiant.php');
+        $_SESSION['message'] = "Pilote ajouté";
+        header('Location: http://localhost/Code/accueil/nav_admin/CRUD_Pilote/addEtudiant.php');
     }
     else
     {
