@@ -1,8 +1,45 @@
+
 <?php
-$user='root';
-$pass='';
-$bd='projet';
-$bd=new mysqli('localhost', $user, $pass, $bd) or die ("unable to connect");
+
+try{
+    $user='root';
+    $pass='';
+    $bd='projet';
+    $serveur='localhost';
+    $connexion = new PDO("mysql:host=$serveur;dbname=$bd", $user, $pass);
+    $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $connexion->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    die("La connexion à la base de données a échoué : " . $e->getMessage());
+}
+
+    $sql = 'SELECT `Id_Offre`,`Statut_offre`,`N_Offre`,`Desc_Offre` FROM offre ORDER BY Id_Offre DESC LIMIT 5';
+    // On prépare la requête
+    $query = $connexion->prepare($sql);
+    // On exécute la requête
+    $query->execute();
+    // On stocke le résultat dans un tableau associatif
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    //
+
+
+    $sql2 = 'SELECT `N_Etudiant`,`P_Etudiant`,COUNT(postule.Id_Etudiant) FROM etudiant INNER JOIN postule ON etudiant.Id_Etudiant = postule.Id_Etudiant GROUP BY etudiant.Id_etudiant ORDER BY COUNT(postule.Id_Etudiant) DESC LIMIT 5';
+    // On prépare la requête
+    $query2 = $connexion->prepare($sql2);
+    // On exécute la requête
+    $query2->execute();
+    // On stocke le résultat dans un tableau associatif
+    $result2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+
+    $sql3 = 'SELECT `N_Entreprise`,COUNT(offre.Id_Entreprise) FROM entreprise INNER JOIN offre ON entreprise.Id_Entreprise = offre.Id_Entreprise GROUP BY offre.Id_Entreprise ORDER BY COUNT(offre.Id_Entreprise) DESC LIMIT 5';
+    // On prépare la requête
+    $query3 = $connexion->prepare($sql3);
+    // On exécute la requête
+    $query3->execute();
+    // On stocke le résultat dans un tableau associatif
+    $result3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -75,8 +112,72 @@ $bd=new mysqli('localhost', $user, $pass, $bd) or die ("unable to connect");
                 </ul>
             </nav>
         </header>
-
-
+        <div class="container">
+        
+        <table class="table_accueil">
+                    <thead>
+                        <th>ID</th>
+                        <th>Statut</th>
+                        <th>Offre</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // On boucle sur la variable result
+                        foreach($result as $etudiant){
+                        ?>
+                            <tr>
+                                <td><?= $etudiant['Id_Offre'] ?></td>
+                                <td><?= $etudiant['Statut_offre'] ?></td>
+                                <td><?= $etudiant['N_Offre'] ?></td>
+                                <td><?= $etudiant['Desc_Offre'] ?></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <table class="table_accueil">
+                    <thead>
+                        <th>Nom</th>
+                        <th>ID</th>
+                        <th>Nb postule</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // On boucle sur la variable result
+                        foreach($result2 as $etudiant2){
+                        ?>
+                            <tr>
+                                <td><?= $etudiant2['N_Etudiant'] ?></td>
+                                <td><?= $etudiant2['P_Etudiant'] ?></td>
+                                <td><?= $etudiant2['COUNT(postule.Id_Etudiant)'] ?></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <table class="table_accueil">
+                    <thead>
+                        <th>Nom entreprise</th>
+                        <th>nb offres proposées</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // On boucle sur la variable result
+                        foreach($result3 as $etudiant3){
+                        ?>
+                            <tr>
+                                <td><?= $etudiant3['N_Entreprise'] ?></td>
+                                <td><?= $etudiant3['COUNT(offre.Id_Entreprise)'] ?></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+        </div>
         <footer>
             <ul>
                 <li>
