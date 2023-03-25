@@ -42,7 +42,7 @@ if(isset($_GET['Id_Pilote']) && !empty($_GET['Id_Pilote']))
 
     // On exécute la requête
     $query->execute();
-    $_SESSION['message'] = "Pilote supprimé";
+    $_SESSION['message'] = "Etudiant supprimé";
     header('Location: http://localhost/Code/accueil/nav_admin/pilotes_admin.php');
 }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="http://localhost/code/accueil/nav_etudiant/style.css">
-        <title> Accueil </title>
+        <title> Candidatures </title>
     </head>
     <body>
         <header>
@@ -70,10 +70,6 @@
         </header>
 
         <br>
-        <?php
-            session_start();
-            echo $_SESSION['id'];
-        ?>
         <br>
 
         <footer>

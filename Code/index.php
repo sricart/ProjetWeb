@@ -1,20 +1,10 @@
 <?php
+session_start();
 //Initialisation variable connection au serveur mysql
     $serveur = "localhost";
     $username = "root";
     $password = "";
     $bdd = "projet";
-
-//Initialisation variable de vérification 
-    $connect = false;
-    $log = false;
-    $mdp = false;
-    $admin = 0;
-    $pilote = 0;
-    $admincon = false;
-    $pilotecon = false;
-    $error = "";
-    $success = "";
 
 //test de connection à la bdd
 try {
@@ -28,19 +18,33 @@ try {
 if(isset($_POST['submit'])){
     $uname = $_POST['uname'];
     $pass = $_POST['pass'];
-    $sql = "SELECT * FROM authentifiant WHERE Login = '".$uname."' AND Mdp = '".$pass."'";
+
+    $getId = "SELECT `Id_Auth`
+    FROM authentifiant
+    WHERE Login = '".$uname."' 
+    AND Mdp = '".$pass."'";
+
+    $sql = "SELECT `Id_Auth`,`Login`,`Mdp`,`Admin`, `Pilote`
+    FROM authentifiant 
+    WHERE Login = '".$uname."' 
+    AND Mdp = '".$pass."'";
+
     $result = mysqli_query($connexion, $sql);
+    $id = mysqli_query($connexion, $getId);
 
     if(mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
         if($row['Admin'] == 1) {
+            $_SESSION['id']=$row['Id_Auth'];
             header('location: http://localhost/code/accueil/nav_admin/accueil_admin.php');
             exit;
         } elseif($row['Pilote'] == 1) {
+            $_SESSION['id']=$row['Id_Auth'];
             header('location: http://localhost/code/accueil/nav_pilote/accueil_pilote.php');
             exit;
         } elseif($row['Login'] == $uname && $row['Mdp'] == $pass) {
+            $_SESSION['id']=$row['Id_Auth'];
             header('location: http://localhost/code/accueil/nav_etudiant/accueil_etudiant.php');
             exit;
         } else {
@@ -51,7 +55,6 @@ if(isset($_POST['submit'])){
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html>

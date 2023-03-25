@@ -4,7 +4,7 @@
     // On inclut la connexion à la base
     require_once('CRUD_Offre/connect.php');
     // Selectionne les infos importantes pour l'admin concernant les etudiants donc admin et pilote !=1
-    $sql = 'SELECT `Id_Offre`,`N_Offre`,`Statut_Offre`,`N_Entreprise`,`Duree`,`Recommandation`,`Remuneration` FROM offre INNER JOIN entreprise ON offre.ID_Entreprise = offre.ID_Entreprise WHERE `statut_Offre`!="close";';
+    $sql = 'SELECT `Id_Offre`,`N_Offre`,`Statut_Offre`,`N_Entreprise`,`Duree`,`Anne2`,`Anne3`,`Anne4`,`Anne5`,`Recommandation`,`Remuneration` FROM offre INNER JOIN entreprise ON offre.ID_Entreprise = offre.ID_Entreprise WHERE `statut_Offre`!="close";';
     // On prépare la requête
     $query = $db->prepare($sql);
     // On exécute la requête
@@ -112,7 +112,7 @@
                                     <a href="http://localhost/code/accueil/nav_etudiant/compte_etudiant.php">Compte</a>
                                 </li>
                                 <li>
-                                    <a onclick="return deconnexionConfirm()" href="http://localhost/code/index.php">Déconnexion </a>
+                                    <a href="http://localhost/code/index.php">Déconnexion </a>
                                 </li>
                             </ul>
                         </div>
@@ -125,6 +125,7 @@
 
         <h1>Liste des offres</h1>
         <?php
+        //onclick="return deconnexionConfirm();
         //style="display:none"
                     if(!empty($_SESSION['erreur'])){
                         echo '<div class="alert alert-danger" role="alert">
@@ -169,16 +170,9 @@
                                 <td><?= $offre['Statut_Offre'] ?></td>
                                 <td><?= $offre['N_Entreprise'] ?></td>
                                 <td><?= $offre['Duree'] ?></td>
-                                <td><?php if($offre['Recommandation'] == 1){
-                                            echo '<i class="fa solid fa-thumbs-up"></i>';
-                                        }
-                                        else{
-                                            echo '<i class="fa solid fa-thumbs-down"></i>';
-                                        } 
-                                    ?>       
-                                </td>
+                                <td><?= $offre['Recommandation'] ?></td>
                                 <td><?= $offre['Remuneration'] ?></td>
-                                <td><a href="http://localhost/Code/accueil/nav_etudiant/afficher_offres.php?Id_Offre=<?= $offre['Id_Offre'] ?>"><i class="fa solid fa-eye"></i></a></td>
+                                <td><a href="http://localhost/test/CRUD_Offre/nav_etudiant/afficher_offres.php?Id_Offre=<?= $offre['Id_Offre'] ?>"><i class="fa solid fa-eye"></i></a></td>
                             </tr>
                         <?php
                         }

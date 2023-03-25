@@ -78,7 +78,7 @@ if(isset($_GET['Id_Pilote']) && !empty($_GET['Id_Pilote'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un produit</title>
+    <title>Modifier un pilote</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
@@ -94,7 +94,7 @@ if(isset($_GET['Id_Pilote']) && !empty($_GET['Id_Pilote'])){
                         $_SESSION['erreur'] = "";
                     }
                 ?>
-                <h1>Ajouter un produit</h1>
+                <h1>Modifier un pilote</h1>
                 <form method="post">
                     <div class="form-group">
                         <label for="N_Etudiant">Nom</label>
@@ -113,7 +113,7 @@ if(isset($_GET['Id_Pilote']) && !empty($_GET['Id_Pilote'])){
                         <input type="text" id="Mdp" name="Mdp" class="form-control" value="<?= $etudiant['Mdp']?>">
                     </div>
                     <input type="hidden" value="<?= $etudiant['Id_Pilote']?>" name="Id_Pilote">
-                    <button class="btn btn-primary">Envoyer</button>
+                    <button class="btn btn-primary">Modifier</button>
                 </form>
             </section>
         </div>

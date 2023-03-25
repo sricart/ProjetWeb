@@ -96,7 +96,7 @@
                                     <a href="http://localhost/code/accueil/nav_admin/compte_admin.php">Compte</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/code/index.php">Déconnexion </a>
+                                    <a href="http://localhost/code/index.php" onclick="return deconnexionConfirm();" >Déconnexion </a>
                                 </li>
                             </ul>
                         </div>
@@ -150,8 +150,8 @@
                                 <td><?= $etudiant['P_Pilote'] ?></td>
                                 <td><?= $etudiant['Login'] ?></td>
                                 <td><?= $etudiant['Mdp'] ?></td>
-                                <td><a href="http://localhost/Code/accueil/nav_admin/CRUD_Pilote/editEtudiant.php?Id_Etudiant=<?= $etudiant['Id_Pilote'] ?>"><i class="fa duotone fa-pencil"></i></a></td> 
-                                <td><a href="http://localhost/Code/accueil/nav_admin/CRUD_Pilote/deleteEtudiant.php?Id_Etudiant=<?= $etudiant['Id_Pilote'] ?>"><i class="fa solid fa-trash"></i></a></td>
+                                <td><a href="http://localhost/Code/accueil/nav_admin/CRUD_Pilote/editEtudiant.php?Id_Pilote=<?= $etudiant['Id_Pilote'] ?>"><i class="fa duotone fa-pencil"></i></a></td> 
+                                <td><a href="http://localhost/Code/accueil/nav_admin/CRUD_Pilote/deleteEtudiant.php?Id_Pilote=<?= $etudiant['Id_Pilote'] ?>"><i class="fa solid fa-trash"></i></a></td>
                             </tr>
                         <?php
                         }
