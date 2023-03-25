@@ -60,7 +60,26 @@
 
                 echo "<h2>" . "Informations sur l'entreprise :" . "</h2>";
                 echo "<p> Nom : " . $offre['N_Entreprise'] . "</p>";
-                echo "<p> Note : " . $offre['Note'] . "/5" . "</p>";
+                if($offre['Note'] == 1){
+                    $star ='<i class="fa solid fa-star"></i> ';
+                }
+                elseif($offre['Note'] == 2){
+                    $star ='<i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i>';
+                }
+                elseif($offre['Note'] == 3){
+                    $star ='<i class="fa solid fa-star"></i> <i class="fa solid fa-star">
+                    </i> <i class="fa solid fa-star"></i>';
+                }
+                elseif($offre['Note'] == 4){
+                    $star ='<i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i> 
+                    <i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i>';
+                }
+                elseif($offre['Note'] == 5){
+                    $star ='<i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i> 
+                    <i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i> 
+                    <i class="fa solid fa-star"></i>';
+                }
+                echo "<p> Note : " . $star . "</p>";
                 echo "<p> Adresse : " . $offre['Numero'] . " " . $offre['N_Rue'] . " " . $offre['Ville'] . " " . $offre['CodeP'] . "</p>";
             
                 require_once('CRUD_Offre/close.php');

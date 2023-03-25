@@ -3,10 +3,17 @@
     session_start();
     // On inclut la connexion à la base
     require_once('CRUD_Offre/connect.php');
-    // Selectionne les infos importantes pour l'admin concernant les etudiants donc admin et pilote !=1
-    $sql = 'SELECT `Id_Offre`,`N_Offre`,`Statut_Offre`,`N_Entreprise`,`Duree`,`Recommandation`,`Remuneration` FROM offre INNER JOIN entreprise ON offre.ID_Entreprise = offre.ID_Entreprise WHERE `statut_Offre`!="close";';
+    $Id_Entreprise = $_GET['Id_Entreprise'];
+    $sql = "SELECT `Id_Offre`,`N_Offre`,`Statut_Offre`,`N_Entreprise`,`Duree`,`Recommandation`,
+    `Remuneration` 
+    FROM offre 
+    INNER JOIN entreprise 
+    ON offre.ID_Entreprise = offre.ID_Entreprise 
+    WHERE `statut_Offre`!='close'
+    AND entreprise.Id_Entreprise = :id;";
     // On prépare la requête
     $query = $db->prepare($sql);
+    $query->bindParam(':id', $Id_Entreprise, PDO::PARAM_INT);
     // On exécute la requête
     $query->execute();
     // On stocke le résultat dans un tableau associatif
@@ -27,15 +34,6 @@
         <title> Offres </title>
 
         <script>
-            function afficherInfo() {
-                var infos = document.getElementById("infos");
-                if (infos.style.display === "none") {
-                    infos.style.display = "block";
-                } else {
-                    infos.style.display = "none";
-                }
-            }
-
             function deconnexionConfirm() {
                 if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
                     window.location.href = "http://localhost/code/index.php";
@@ -109,26 +107,25 @@
         </header>
 
         <br>
+        <h1> Offre(s) de l'entreprise </h1>
 
-        <h1>Liste des offres</h1>
         <?php
-        //style="display:none"
-                    if(!empty($_SESSION['erreur'])){
-                        echo '<div class="alert alert-danger" role="alert">
-                                '. $_SESSION['erreur'].'
-                            </div>';
-                        $_SESSION['erreur'] = "";
-                    }
-                ?>
-                <?php
-                    if(!empty($_SESSION['message'])){
-                        echo '<div class="alert alert-success" role="alert">
-                                '. $_SESSION['message'].'
-                            </div>';
-                        $_SESSION['message'] = "";
-                    }
-                ?>
-        <input type="button" onclick="afficherInfo()" value="AFFICHER" class="btn_afficher">
+            if(!empty($_SESSION['erreur'])){
+                echo '<div class="alert alert-danger" role="alert">
+                '. $_SESSION['erreur'].'
+                </div>';
+                $_SESSION['erreur'] = "";
+            }
+        ?>
+        <?php
+            if(!empty($_SESSION['message'])){
+                echo '<div class="alert alert-success" role="alert">
+                '. $_SESSION['message'].'
+                </div>';
+                $_SESSION['message'] = "";
+            }
+        ?>
+        <a href="http://localhost/Code/accueil/nav_etudiant/entreprises_etudiant.php" class="btn_retour">Retour</a>
         <br>
         <div id="infos" class="container"  >
         <div class="row">

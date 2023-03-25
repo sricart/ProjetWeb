@@ -1,3 +1,23 @@
+<?php
+    // On démarre une session
+    session_start();
+    // On inclut la connexion à la base
+    require_once('CRUD_Offre/connect.php');
+    // Selectionne les infos importantes pour l'admin concernant les etudiants donc admin et pilote !=1
+    $sql = 'SELECT * 
+    FROM entreprise 
+    JOIN adresse 
+    ON entreprise.Id_Entreprise = adresse.Id_Entreprise';
+    // On prépare la requête
+    $query = $db->prepare($sql);
+    // On exécute la requête
+    $query->execute();
+    // On stocke le résultat dans un tableau associatif
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    require_once('CRUD_Offre/close.php');
+    //
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,6 +28,26 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <title> Entreprises </title>
+
+        <script>
+            function afficherInfo() {
+                var infos = document.getElementById("infos");
+                if (infos.style.display === "none") {
+                    infos.style.display = "block";
+                } else {
+                    infos.style.display = "none";
+                }
+            }
+
+            function deconnexionConfirm() {
+                if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+                    window.location.href = "http://localhost/code/index.php";
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        </script>
     </head>
     <body>
         <header>
@@ -60,7 +100,7 @@
                                     <a href="http://localhost/code/accueil/nav_etudiant/compte_etudiant.php">Compte</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/code/index.php">Déconnexion </a>
+                                    <a onclick="return deconnexionConfirm()" href="http://localhost/code/index.php">Déconnexion </a>
                                 </li>
                             </ul>
                         </div>
@@ -70,6 +110,83 @@
         </header>
 
         <br>
+
+        <h1>Liste des entreprises</h1>
+        <?php
+        //style="display:none"
+                    if(!empty($_SESSION['erreur'])){
+                        echo '<div class="alert alert-danger" role="alert">
+                                '. $_SESSION['erreur'].'
+                            </div>';
+                        $_SESSION['erreur'] = "";
+                    }
+                ?>
+                <?php
+                    if(!empty($_SESSION['message'])){
+                        echo '<div class="alert alert-success" role="alert">
+                                '. $_SESSION['message'].'
+                            </div>';
+                        $_SESSION['message'] = "";
+                    }
+                ?>
+        <input type="button" onclick="afficherInfo()" value="AFFICHER" class="btn_afficher">
+        <br>
+        <div id="infos" class="container"  >
+        <div class="row">
+            <section class="col-12">
+                
+                <table class="table">
+                    <thead>
+                        <th>Nom de l'entreprise</th>
+                        <th>Note</th>
+                        <th>Adresse</th>
+                        <th>Ville</th>
+                        <th>Code Postal</th>
+                        <th>Region</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // On boucle sur la variable result
+                        foreach($result as $entreprise){
+                        ?>
+                            <tr>
+                                <td><?= $entreprise['N_Entreprise'] ?></td>
+                                <td><?php if($entreprise['Note'] == 1){
+                                            echo '<i class="fa solid fa-star"></i> ';
+                                        }
+                                        elseif($entreprise['Note'] == 2){
+                                            echo '<i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i>';
+                                        }
+                                        elseif($entreprise['Note'] == 3){
+                                            echo '<i class="fa solid fa-star"></i> <i class="fa solid fa-star">
+                                            </i> <i class="fa solid fa-star"></i>';
+                                        }
+                                        elseif($entreprise['Note'] == 4){
+                                            echo '<i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i> 
+                                            <i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i>';
+                                        }
+                                        elseif($entreprise['Note'] == 5){
+                                            echo '<i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i> 
+                                            <i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i> 
+                                            <i class="fa solid fa-star"></i>'; 
+                                        }
+                                    ?>
+                                </td>
+                                <td><?= $entreprise['Numero'] . " " . $entreprise['N_Rue'] ?></td>
+                                <td><?= $entreprise['Ville'] ?></td>
+                                <td><?= $entreprise['CodeP'] ?></td>      
+                                <td><?= $entreprise['Region'] ?></td>
+                                <td><a href="http://localhost/Code/accueil/nav_etudiant/entreprises_offres.php?Id_Entreprise=<?= $entreprise['Id_Entreprise'] ?>"><i class="fa solid fa-eye"></i></a></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </section>
+            </div>
+
         <br>
 
         <footer>
