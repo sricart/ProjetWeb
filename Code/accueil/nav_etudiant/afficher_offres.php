@@ -17,12 +17,15 @@
                 $sql = 'SELECT `Statut_offre`,`N_Offre`,`Desc_Offre`,
                 `Duree`,`Anne2`,`Anne3`,`Anne4`,`Anne5`,`Recommandation`,
                 `Remuneration`,`Date_Pub`,`N_Entreprise`,`Note`,`Numero`,
-                `N_Rue`,`CodeP`,`CodeP`,`Ville`,`Departement`,`Region`,`Complement`
+                `N_Rue`,`CodeP`,`CodeP`,`Ville`,`Departement`,`Region`,`Complement`,
+                `N_Pilote`, `P_Pilote`
                 FROM offre 
                 JOIN entreprise 
                 ON offre.Id_Entreprise = entreprise.Id_Entreprise 
                 JOIN adresse
                 ON adresse.Id_Entreprise = entreprise.Id_Entreprise
+                JOIN pilote
+                ON pilote.Id_Pilote = offre.Id_Pilote
                 WHERE Id_Offre = :id';
                 
                 $query = $db->prepare($sql);
@@ -57,6 +60,7 @@
                 
                 echo "<p>Recommandation : " . $reco . "</p>";
                 echo "<p>Rémunération : " . $offre['Remuneration'] . "</p>";
+                echo "<p>Pour plus d'information, joindre : " . $offre['N_Pilote'] . " " . $offre['P_Pilote'] . "</p>";
 
                 echo "<h2>" . "Informations sur l'entreprise :" . "</h2>";
                 echo "<p> Nom : " . $offre['N_Entreprise'] . "</p>";

@@ -389,3 +389,14 @@ section.afficheoffre {
   .boutons a {
     margin-right: 10px;
   }
+
+.affInfo {
+  background-color: #FDF5E6; /* Couleur crème */
+  border: 2px solid black; /* bordure de 2px de largeur, noire */
+  padding: 20px; /* espace intérieur de 20px autour du contenu */
+  margin: 0 auto; /* centrage horizontal */
+  width: 80%; /* largeur de 80% de la largeur disponible */
+}
+
+
+

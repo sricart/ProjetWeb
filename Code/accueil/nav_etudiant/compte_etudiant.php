@@ -70,6 +70,40 @@
         </header>
 
         <br>
+
+        <section class="affInfo">
+            <?php
+                session_start();    
+                $Id_Auth = $_SESSION['id'];
+                    
+                require_once('CRUD_Offre/connect.php');
+                
+                $sql = 'SELECT *
+                FROM authentifiant 
+                JOIN etudiant 
+                ON authentifiant.Id_Auth = etudiant.Id_Auth
+                JOIN promotion
+                ON etudiant.Id_Promotion = promotion.Id_Promotion
+                JOIN pilote
+                ON promotion.Id_Pilote = pilote.Id_Pilote 
+                WHERE authentifiant.Id_Auth = :id';
+                
+                $query = $db->prepare($sql);
+                $query->bindParam(':id', $Id_Auth, PDO::PARAM_INT);
+                $query->execute();
+                $etudiant = $query->fetch(PDO::FETCH_ASSOC);
+
+                echo "<h2> Informations personnelles : </h2>";
+                echo "<p> Nom : " . $etudiant['N_Etudiant'] . "</p>"; 
+                echo "<p> Prénom : " . $etudiant['P_Etudiant'] . "</p>";
+                echo "<p> Statut du stage : " . $etudiant['Statut_Stage'] . "</p>";
+                echo "<p> Promotion : " . $etudiant['Id_Promotion'] . "</p>";
+                echo "<p> Centre : " . $etudiant['Id_Centre'] . "</p>";
+                echo "<p> Pilote : " . $etudiant['N_Pilote'] . " " . $etudiant['P_Pilote'] . "</p>";
+
+            ?>
+        </section>
+
         <br>
 
         <footer>

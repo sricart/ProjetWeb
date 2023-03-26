@@ -17,7 +17,7 @@
                 $sql = 'SELECT `Statut_offre`,`N_Offre`,`Desc_Offre`,
                 `Duree`,`Anne2`,`Anne3`,`Anne4`,`Anne5`,`Recommandation`,
                 `Remuneration`,`Date_Pub`,`N_Entreprise`,`Note`,`Numero`,
-                `N_Rue`,`CodeP`,`CodeP`,`Ville`,`Departement`,`Region`,`Complement`
+                `N_Rue`,`CodeP`,`CodeP`,`Ville`,`Departement`,`Region`,`Complement`, N_Sect
                 FROM offre 
                 JOIN entreprise 
                 ON offre.Id_Entreprise = entreprise.Id_Entreprise 

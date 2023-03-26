@@ -4,10 +4,12 @@
     // On inclut la connexion à la base
     require_once('CRUD_Offre/connect.php');
     // Selectionne les infos importantes pour l'admin concernant les etudiants donc admin et pilote !=1
-    $sql = 'SELECT * 
+    $sql = 'SELECT DISTINCT entreprise.Id_Entreprise, N_Entreprise, Note, Numero, N_Rue, Ville, CodeP, Region
     FROM entreprise 
     JOIN adresse 
-    ON entreprise.Id_Entreprise = adresse.Id_Entreprise';
+    ON entreprise.Id_Entreprise = adresse.Id_Entreprise
+    JOIN conserne
+    ON entreprise.Id_Entreprise = conserne.Id_Entreprise';
     // On prépare la requête
     $query = $db->prepare($sql);
     // On exécute la requête
