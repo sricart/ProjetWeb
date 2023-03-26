@@ -362,7 +362,7 @@ section.afficheoffre {
     border-radius: 5px;
   }
 
-  .btn_aff{
+  .btn_aff, .btn{
     background-color: #4CAF50;
   }
 

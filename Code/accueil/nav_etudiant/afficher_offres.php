@@ -14,11 +14,7 @@
                 
                 require_once('CRUD_Offre/connect.php');
                 
-                $sql = 'SELECT `Statut_offre`,`N_Offre`,`Desc_Offre`,
-                `Duree`,`Anne2`,`Anne3`,`Anne4`,`Anne5`,`Recommandation`,
-                `Remuneration`,`Date_Pub`,`N_Entreprise`,`Note`,`Numero`,
-                `N_Rue`,`CodeP`,`CodeP`,`Ville`,`Departement`,`Region`,`Complement`,
-                `N_Pilote`, `P_Pilote`
+                $sql = 'SELECT *
                 FROM offre 
                 JOIN entreprise 
                 ON offre.Id_Entreprise = entreprise.Id_Entreprise 
@@ -89,8 +85,8 @@
                 require_once('CRUD_Offre/close.php');
             ?>
             <a href="http://localhost/Code/accueil/nav_etudiant/offres_etudiant.php" class="btn_retour">Retour</a>
+            <a href="http://localhost/Code/accueil/nav_etudiant/CRUD_Offre/AjoOffre.php?Id_Offre=<?= $offre['Id_Offre'] ?>" class="btn_aff">Postuler</a>
             <a href="#" class="btn_aff">Ajouter à la liste de souhaits</a>
-            <a href="#" class="btn_aff">Postuler</a>
         </section>
         <br>
         <br>

@@ -10,83 +10,52 @@
     <body>
         <section class="afficheoffre">
             <?php
-                $Id_Offre = $_GET['Id_Offre'];
+                $Id_Entreprise = $_GET['Id_Entreprise'];
                 
                 require_once('CRUD_Offre/connect.php');
                 
-                $sql = 'SELECT `Statut_offre`,`N_Offre`,`Desc_Offre`,
-                `Duree`,`Anne2`,`Anne3`,`Anne4`,`Anne5`,`Recommandation`,
-                `Remuneration`,`Date_Pub`,`N_Entreprise`,`Note`,`Numero`,
-                `N_Rue`,`CodeP`,`CodeP`,`Ville`,`Departement`,`Region`,`Complement`, N_Sect
-                FROM offre 
-                JOIN entreprise 
-                ON offre.Id_Entreprise = entreprise.Id_Entreprise 
-                JOIN adresse
-                ON adresse.Id_Entreprise = entreprise.Id_Entreprise
-                WHERE Id_Offre = :id';
+                $sql = 'SELECT *
+                FROM entreprise 
+                JOIN adresse 
+                ON entreprise.Id_Entreprise = adresse.Id_Entreprise 
+                WHERE entreprise.Id_Entreprise = :id';
                 
                 $query = $db->prepare($sql);
-                $query->bindParam(':id', $Id_Offre, PDO::PARAM_INT);
+                $query->bindParam(':id', $Id_Entreprise, PDO::PARAM_INT);
                 $query->execute();
-                $offre = $query->fetch(PDO::FETCH_ASSOC);
+                $entreprise = $query->fetch(PDO::FETCH_ASSOC);
 
-                echo "<h1>" . $offre['N_Offre'] . ' - Pour l\'entreprise : ' . $offre['N_Entreprise']  .  "</h1>";
-                echo "<h2>" . "Description de l'offre :" . "</h2>";
-                echo $offre['Desc_Offre'];
-                echo "<h2>" . "Informations supplémentaires sur l'offre :" . "</h2>";
-                echo "<p>Durée(s) : " . $offre['Duree'] . "</p>";
-                echo "<p>Année(s) concernée(s) : </p>";
-                if ($offre['Anne2'] == 1) {
-                    echo "<p>Années 2 </p>";
-                }
-                if ($offre['Anne3'] == 1) {
-                    echo "<p>Années 3 </p>";
-                }
-                if ($offre['Anne4'] == 1) {
-                    echo "<p>Années 4 </p>";
-                }
-                if ($offre['Anne5'] == 1) {
-                    echo "<p>Années 5 </p>";
-                }
-                if($offre['Recommandation'] == 1){
-                    $reco = '<i class="fa solid fa-thumbs-up"></i>';
-                }
-                else{
-                    $reco = '<i class="fa solid fa-thumbs-down"></i>';
-                }
-                
-                echo "<p>Recommandation : " . $reco . "</p>";
-                echo "<p>Rémunération : " . $offre['Remuneration'] . "</p>";
-
-                echo "<h2>" . "Informations sur l'entreprise :" . "</h2>";
-                echo "<p> Nom : " . $offre['N_Entreprise'] . "</p>";
-                if($offre['Note'] == 1){
+                echo "<h2>" . 'Entreprise : ' . $entreprise['N_Entreprise']  .  "</h2>";
+                echo "<p>" . "Description de l'entreprise : ";
+                echo $entreprise['Desc_E'] . "</p>" ;
+                if($entreprise['Note'] == 1){
                     $star ='<i class="fa solid fa-star"></i> ';
                 }
-                elseif($offre['Note'] == 2){
+                elseif($entreprise['Note'] == 2){
                     $star ='<i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i>';
                 }
-                elseif($offre['Note'] == 3){
+                elseif($entreprise['Note'] == 3){
                     $star ='<i class="fa solid fa-star"></i> <i class="fa solid fa-star">
                     </i> <i class="fa solid fa-star"></i>';
                 }
-                elseif($offre['Note'] == 4){
+                elseif($entreprise['Note'] == 4){
                     $star ='<i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i> 
                     <i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i>';
                 }
-                elseif($offre['Note'] == 5){
+                elseif($entreprise['Note'] == 5){
                     $star ='<i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i> 
                     <i class="fa solid fa-star"></i> <i class="fa solid fa-star"></i> 
                     <i class="fa solid fa-star"></i>';
                 }
                 echo "<p> Note : " . $star . "</p>";
-                echo "<p> Adresse : " . $offre['Numero'] . " " . $offre['N_Rue'] . " " . $offre['Ville'] . " " . $offre['CodeP'] . "</p>";
+                echo "<h2>" . "Adresse :" . "</h2>";
+                echo "<p> Adresse : " . $entreprise['Numero'] . " " . $entreprise['N_Rue'] . " " . $entreprise['Ville'] . " " . $entreprise['CodeP'] . "</p>";
             
                 require_once('CRUD_Offre/close.php');
             ?>
             <a href="http://localhost/Code/accueil/nav_etudiant/offres_etudiant.php" class="btn_retour">Retour</a>
-            <a href="#" class="btn_aff">Ajouter à la liste de souhaits</a>
-            <a href="#" class="btn_aff">Postuler</a>
+            <a href="http://localhost/Code/accueil/nav_etudiant/entreprises_offres.php?Id_Entreprise=<?= $entreprise['Id_Entreprise'] ?>" class="btn_aff">offres de l'entreprise</a>
+            <a href="http://localhost/Code/accueil/nav_etudiant/avis_entreprise.php?Id_Entreprise=<?= $entreprise['Id_Entreprise'] ?>" class="btn_aff">Avis</a>
         </section>
         <br>
         <br>

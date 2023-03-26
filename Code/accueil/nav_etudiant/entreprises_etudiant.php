@@ -4,12 +4,10 @@
     // On inclut la connexion à la base
     require_once('CRUD_Offre/connect.php');
     // Selectionne les infos importantes pour l'admin concernant les etudiants donc admin et pilote !=1
-    $sql = 'SELECT DISTINCT entreprise.Id_Entreprise, N_Entreprise, Note, Numero, N_Rue, Ville, CodeP, Region
+    $sql = 'SELECT entreprise.Id_Entreprise, N_Entreprise, Note, Numero, N_Rue, Ville, CodeP, Region
     FROM entreprise 
     JOIN adresse 
-    ON entreprise.Id_Entreprise = adresse.Id_Entreprise
-    JOIN conserne
-    ON entreprise.Id_Entreprise = conserne.Id_Entreprise';
+    ON entreprise.Id_Entreprise = adresse.Id_Entreprise';
     // On prépare la requête
     $query = $db->prepare($sql);
     // On exécute la requête
@@ -145,7 +143,8 @@
                         <th>Ville</th>
                         <th>Code Postal</th>
                         <th>Region</th>
-                        <th></th>
+                        <th>Afficher</th>
+                        <th>offre(s)</th>
                     </thead>
                     <tbody>
                         <?php
@@ -179,7 +178,8 @@
                                 <td><?= $entreprise['Ville'] ?></td>
                                 <td><?= $entreprise['CodeP'] ?></td>      
                                 <td><?= $entreprise['Region'] ?></td>
-                                <td><a href="http://localhost/Code/accueil/nav_etudiant/entreprises_offres.php?Id_Entreprise=<?= $entreprise['Id_Entreprise'] ?>"><i class="fa solid fa-eye"></i></a></td>
+                                <td><a href="http://localhost/Code/accueil/nav_etudiant/afficher_entreprises.php?Id_Entreprise=<?= $entreprise['Id_Entreprise'] ?>"><i class="fa solid fa-eye"></i></a></td>
+                                <td><a href="http://localhost/Code/accueil/nav_etudiant/entreprises_offres.php?Id_Entreprise=<?= $entreprise['Id_Entreprise'] ?>"><i class="fa solid fa-list"></i></a>
                             </tr>
                         <?php
                         }

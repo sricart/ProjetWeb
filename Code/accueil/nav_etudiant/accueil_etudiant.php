@@ -1,3 +1,28 @@
+<?php
+    session_start();
+    require_once('CRUD_Offre/connect.php');
+    $authenticated = false;
+    if (isset($_SESSION['id'])) {
+        $id = $_SESSION['id'];
+        $sql = 'SELECT Id_Auth FROM authentifiant WHERE Id_Auth = :id';
+        $query = $db->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($result as $row) {
+            if ($row['Id_Auth'] == $id) {
+                $authenticated = true;
+                break;
+            }
+        }
+    }
+    if (!$authenticated) {
+        header("Location: http://localhost/Code/index.php");
+       exit;
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -71,33 +96,19 @@
 
         <br>
         <?php
-        session_start();
-
-        require_once('CRUD_Offre/connect.php');
-
-        $authenticated = false;
-        
-        if (isset($_SESSION['id'])) {
-            $id = $_SESSION['id'];
-        
-            $sql = 'SELECT Id_Auth FROM authentifiant WHERE Id_Auth = :id';
-            $query = $db->prepare($sql);
-            $query->bindParam(':id', $id, PDO::PARAM_INT);
-            $query->execute();
-            $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        
-            foreach ($result as $row) {
-                if ($row['Id_Auth'] == $id) {
-                    $authenticated = true;
-                    break;
-                }
-            }
-        }
-        
-        if (!$authenticated) {
-            header("Location: http://localhost/Code/index.php");
-            exit;
-        }
+        $Id_Auth = $_SESSION['id'];                            
+        require_once('CRUD_Offre/connect.php');          
+        $sql = 'SELECT P_Etudiant
+        FROM etudiant 
+        JOIN authentifiant 
+        ON etudiant.Id_Auth = authentifiant.Id_Auth
+        WHERE authentifiant.Id_Auth = :id';
+                        
+        $query = $db->prepare($sql);
+        $query->bindParam(':id', $Id_Auth, PDO::PARAM_INT);
+        $query->execute();
+        $etudiant = $query->fetch(PDO::FETCH_ASSOC);
+        echo "<h2>" . 'Bienvenue ' . $etudiant['P_Etudiant']  .  "</h2>";
         ?>
         <br>
 
