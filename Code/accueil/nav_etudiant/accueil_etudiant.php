@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once('CRUD_Offre/connect.php');
+    require_once('CRUD_Etudiant/connect.php');
     $authenticated = false;
     if (isset($_SESSION['id'])) {
         $id = $_SESSION['id'];
