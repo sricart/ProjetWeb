@@ -1,10 +1,34 @@
+<?php
+    session_start();
+    require_once('CRUD_Offre/connect.php');
+    $authenticated = false;
+    if (isset($_SESSION['id'])) {
+        $id = $_SESSION['id'];
+        $sql = 'SELECT Id_Auth FROM authentifiant WHERE Id_Auth = :id';
+        $query = $db->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($result as $row) {
+            if ($row['Id_Auth'] == $id) {
+                $authenticated = true;
+                break;
+            }
+        }
+    }
+    if (!$authenticated) {
+        header("Location: http://localhost/Code/index.php");
+       exit;
+    }
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="http://localhost/B4/Projet/L3/code/accueil/nav_etudiant/style.css">
+        <link rel="stylesheet" href="http://localhost/code/accueil/nav_etudiant/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <title> Mentions Légales </title>

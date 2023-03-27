@@ -1,20 +1,32 @@
 <?php
-    // On démarre une session
     session_start();
-    // On inclut la connexion à la base
     require_once('CRUD_Offre/connect.php');
-    // Selectionne les infos importantes pour l'admin concernant les etudiants donc admin et pilote !=1
+    $authenticated = false;
+    if (isset($_SESSION['id'])) {
+        $id = $_SESSION['id'];
+        $sql = 'SELECT Id_Auth FROM authentifiant WHERE Id_Auth = :id';
+        $query = $db->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($result as $row) {
+            if ($row['Id_Auth'] == $id) {
+                $authenticated = true;
+                break;
+            }
+        }
+    }
+    if (!$authenticated) {
+        header("Location: http://localhost/Code/index.php");
+       exit;
+    }
+
     $sql = 'SELECT `Id_Offre`,`N_Offre`,`Statut_Offre`,`N_Entreprise`,`Duree`,`Recommandation`,`Remuneration` FROM offre INNER JOIN entreprise ON offre.ID_Entreprise = offre.ID_Entreprise WHERE `statut_Offre`!="close";';
-    // On prépare la requête
     $query = $db->prepare($sql);
-    // On exécute la requête
     $query->execute();
-    // On stocke le résultat dans un tableau associatif
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
     require_once('CRUD_Offre/close.php');
-    //
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -112,7 +124,6 @@
 
         <h1>Liste des offres</h1>
         <?php
-        //style="display:none"
                     if(!empty($_SESSION['erreur'])){
                         echo '<div class="alert alert-danger" role="alert">
                                 '. $_SESSION['erreur'].'
@@ -128,7 +139,6 @@
                         $_SESSION['message'] = "";
                     }
                 ?>
-        <input type="button" onclick="afficherInfo()" value="AFFICHER" class="btn_afficher">
         <br>
         <div id="infos" class="container"  >
         <div class="row">

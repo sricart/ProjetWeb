@@ -1,21 +1,34 @@
 <?php
-    // On démarre une session
     session_start();
-    // On inclut la connexion à la base
     require_once('CRUD_Offre/connect.php');
-    // Selectionne les infos importantes pour l'admin concernant les etudiants donc admin et pilote !=1
+    $authenticated = false;
+    if (isset($_SESSION['id'])) {
+        $id = $_SESSION['id'];
+        $sql = 'SELECT Id_Auth FROM authentifiant WHERE Id_Auth = :id';
+        $query = $db->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($result as $row) {
+            if ($row['Id_Auth'] == $id) {
+                $authenticated = true;
+                break;
+            }
+        }
+    }
+    if (!$authenticated) {
+        header("Location: http://localhost/Code/index.php");
+       exit;
+    }
+
     $sql = 'SELECT entreprise.Id_Entreprise, N_Entreprise, Note, Numero, N_Rue, Ville, CodeP, Region
     FROM entreprise 
     JOIN adresse 
     ON entreprise.Id_Entreprise = adresse.Id_Entreprise';
-    // On prépare la requête
     $query = $db->prepare($sql);
-    // On exécute la requête
     $query->execute();
-    // On stocke le résultat dans un tableau associatif
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
     require_once('CRUD_Offre/close.php');
-    //
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +41,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <title> Entreprises </title>
-
         <script>
             function afficherInfo() {
                 var infos = document.getElementById("infos");
@@ -113,7 +125,6 @@
 
         <h1>Liste des entreprises</h1>
         <?php
-        //style="display:none"
                     if(!empty($_SESSION['erreur'])){
                         echo '<div class="alert alert-danger" role="alert">
                                 '. $_SESSION['erreur'].'
@@ -129,7 +140,6 @@
                         $_SESSION['message'] = "";
                     }
                 ?>
-        <input type="button" onclick="afficherInfo()" value="AFFICHER" class="btn_afficher">
         <br>
         <div id="infos" class="container"  >
         <div class="row">

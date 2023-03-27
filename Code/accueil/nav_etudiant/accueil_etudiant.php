@@ -33,6 +33,25 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="http://localhost/code/accueil/nav_etudiant/style.css">
         <title> Accueil </title>
+        <script>
+            function afficherInfo() {
+                var infos = document.getElementById("infos");
+                if (infos.style.display === "none") {
+                    infos.style.display = "block";
+                } else {
+                    infos.style.display = "none";
+                }
+            }
+
+            function deconnexionConfirm() {
+                if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+                    window.location.href = "http://localhost/code/index.php";
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        </script>
     </head>
     <body>
         <header>
@@ -85,7 +104,7 @@
                                     <a href="http://localhost/code/accueil/nav_etudiant/compte_etudiant.php">Compte</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/code/index.php">Déconnexion </a>
+                                    <a onclick="return deconnexionConfirm()" href="http://localhost/code/index.php">Déconnexion </a>
                                 </li>
                             </ul>
                         </div>

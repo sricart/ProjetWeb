@@ -19,7 +19,27 @@
     // On stocke le résultat dans un tableau associatif
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
     require_once('CRUD_Offre/close.php');
-    //
+    session_start();
+    require_once('CRUD_Offre/connect.php');
+    $authenticated = false;
+    if (isset($_SESSION['id'])) {
+        $id = $_SESSION['id'];
+        $sql = 'SELECT Id_Auth FROM authentifiant WHERE Id_Auth = :id';
+        $query = $db->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($result as $row) {
+            if ($row['Id_Auth'] == $id) {
+                $authenticated = true;
+                break;
+            }
+        }
+    }
+    if (!$authenticated) {
+        header("Location: http://localhost/Code/index.php");
+       exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +54,15 @@
         <title> Offres </title>
 
         <script>
+            function afficherInfo() {
+                var infos = document.getElementById("infos");
+                if (infos.style.display === "none") {
+                    infos.style.display = "block";
+                } else {
+                    infos.style.display = "none";
+                }
+            }
+
             function deconnexionConfirm() {
                 if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
                     window.location.href = "http://localhost/code/index.php";
@@ -108,7 +137,7 @@
 
         <br>
         <h1> Offre(s) de l'entreprise </h1>
-
+        <br>
         <?php
             if(!empty($_SESSION['erreur'])){
                 echo '<div class="alert alert-danger" role="alert">

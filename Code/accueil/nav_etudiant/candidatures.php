@@ -1,3 +1,27 @@
+<?php
+    session_start();
+    require_once('CRUD_Offre/connect.php');
+    $authenticated = false;
+    if (isset($_SESSION['id'])) {
+        $id = $_SESSION['id'];
+        $sql = 'SELECT Id_Auth FROM authentifiant WHERE Id_Auth = :id';
+        $query = $db->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($result as $row) {
+            if ($row['Id_Auth'] == $id) {
+                $authenticated = true;
+                break;
+            }
+        }
+    }
+    if (!$authenticated) {
+        header("Location: http://localhost/Code/index.php");
+       exit;
+    }
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,6 +32,25 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="http://localhost/code/accueil/nav_etudiant/style.css">
         <title> Candidatures </title>
+        <script>
+            function afficherInfo() {
+                var infos = document.getElementById("infos");
+                if (infos.style.display === "none") {
+                    infos.style.display = "block";
+                } else {
+                    infos.style.display = "none";
+                }
+            }
+
+            function deconnexionConfirm() {
+                if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+                    window.location.href = "http://localhost/code/index.php";
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        </script>
     </head>
     <body>
         <header>
@@ -60,7 +103,7 @@
                                     <a href="http://localhost/code/accueil/nav_etudiant/compte_etudiant.php">Compte</a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/code/index.php">Déconnexion </a>
+                                    <a onclick="return deconnexionConfirm()" href="http://localhost/code/index.php">Déconnexion </a>
                                 </li>
                             </ul>
                         </div>
@@ -68,11 +111,11 @@
                 </ul>
             </nav>
         </header>
-
+        <br>
+        <h1>Liste des candidatures</h1>
         <br>
 
         <?php
-                session_start();    
                 $Id_Auth = $_SESSION['id'];
                     
                 require_once('CRUD_Offre/connect.php');
