@@ -1,20 +1,10 @@
 <?php
+session_start();
 //Initialisation variable connection au serveur mysql
     $serveur = "localhost";
     $username = "root";
     $password = "";
     $bdd = "projet";
-
-//Initialisation variable de vérification 
-    $connect = false;
-    $log = false;
-    $mdp = false;
-    $admin = 0;
-    $pilote = 0;
-    $admincon = false;
-    $pilotecon = false;
-    $error = "";
-    $success = "";
 
 //test de connection à la bdd
 try {
@@ -28,48 +18,63 @@ try {
 if(isset($_POST['submit'])){
     $uname = $_POST['uname'];
     $pass = $_POST['pass'];
-    $sql = "SELECT * FROM authentifiant WHERE Login = '".$uname."' AND Mdp = '".$pass."'";
+
+    $getId = "SELECT `Id_Auth`
+    FROM authentifiant
+    WHERE Login = '".$uname."' 
+    AND Mdp = '".$pass."'";
+
+    $sql = "SELECT `Id_Auth`,`Login`,`Mdp`,`Admin`, `Pilote`
+    FROM authentifiant 
+    WHERE Login = '".$uname."' 
+    AND Mdp = '".$pass."'";
+
     $result = mysqli_query($connexion, $sql);
+    $id = mysqli_query($connexion, $getId);
 
     if(mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
         if($row['Admin'] == 1) {
-            header('location: accueil/nav_admin/accueil_admin.php');
+            $_SESSION['id']=$row['Id_Auth'];
+            header('location: http://localhost/code/accueil/nav_admin/accueil_admin.php');
             exit;
         } elseif($row['Pilote'] == 1) {
-            header('location: accueil/nav_pilote/accueil_pilote.php');
+            $_SESSION['id']=$row['Id_Auth'];
+            header('location: http://localhost/code/accueil/nav_pilote/accueil_pilote.php');
             exit;
         } elseif($row['Login'] == $uname && $row['Mdp'] == $pass) {
-            header('location: accueil/nav_etudiant/accueil_etudiant.php');
+            $_SESSION['id']=$row['Id_Auth'];
+            header('location: http://localhost/code/accueil/nav_etudiant/accueil_etudiant.php');
             exit;
         } else {
-            $error = "Login et/ou mot de passe incorrect";
+           
         }
     } else {
-        $error = "Login et/ou mot de passe incorrect";
+       
     }
 }
 ?>
 
-
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
+        <html lang="fr">
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title> Authentification </title>
     </head>
     <body>
         <div class="container">
             <div class="image">
-                <img src="http://localhost/B4/projet/L3/code/image/co.png" title= "bienvenue" >
-            </div>
-            <div class="logo">
-                <img src="http://localhost/B4/projet/L3/code/image/logo.png" title="logo">
+                <img src="http://localhost/code/image/co.png" title= "bienvenue" >
             </div>
             <div class="login-box">
+                <div class="logo">
+                    <img src="http://localhost/code/image/logo.png" title="logo">
+                </div>
+                <br>
                 <h2>S'authentifier</h2>
                 <form method="post">
                     <div class="user-box">
@@ -79,16 +84,17 @@ if(isset($_POST['submit'])){
                     <div class="user-box">
                         <input type="password" name="pass" required="">
                         <label>Mot de passe</label>
+                        <a class="mdp_oublie" href="mdp_oublie.php"> Mot de passe oublié ? </a>
                     </div>
                     <a >
-                        <input class="button" type="submit" name="submit" value="Connexion">
+                        <input class="button" type="submit" name="submit" value="Connexion" aria-labelledby="Login">
                         <span></span>
                         <span></span>
                         <span></span>
                         <span></span>
                     </a>
                     <a class="btnreset">
-                        <input class="button" type="reset" value="Effacer" >
+                        <input class="button" type="reset" value="Effacer" aria-labelledby="reset">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -101,19 +107,19 @@ if(isset($_POST['submit'])){
             <footer>
                 <ul>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/footer/actualites.php">Actualités</a> 
+                        <a href="http://localhost/code/footer/actualites.php">Actualités</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/footer/a_propos.php">À Propos</a> 
+                        <a href="http://localhost/code/footer/a_propos.php">À Propos</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/footer/support.php">Support</a> 
+                        <a href="http://localhost/code/footer/support.php">Support</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/footer/mentions_legales.php">Mentions Légales</a> 
+                        <a href="http://localhost/code/footer/mentions_legales.php">Mentions Légales</a> 
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/footer/cgu.php">CGU</a> 
+                        <a href="http://localhost/code/footer/cgu.php">CGU</a> 
                     </li>
                 </ul>
             </footer>
@@ -121,19 +127,3 @@ if(isset($_POST['submit'])){
     </body>
     
 </html>
-
-
-
-
-
-
-
-
-<?php
-    /* Vérifier si Gandalf est dans la BDD 
-    $req_str = "SELECT * FROM utilisateurs WHERE pseudo = 'Gandalf';";
-    $stmt = $conn->query($req_str);
-    if(!$stmt){echo "erreur de requête : $req_str\n";die;}
-    if($stmt->fetch()){echo "Utilisateur Gandalf présent.\n"; $stmt->closeCursor();}
-    else{echo "Utilisateur Gandalf introuvable";} */
-?>

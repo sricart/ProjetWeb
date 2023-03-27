@@ -1,8 +1,66 @@
+
 <?php
-$user='root';
-$pass='';
-$bd='projet';
-$bd=new mysqli('localhost', $user, $pass, $bd) or die ("unable to connect");
+session_start();
+require_once('CRUD_Etudiant/connect.php');
+$authenticated = false;
+if (isset($_SESSION['id'])) {
+    $id = $_SESSION['id'];
+    $sql = 'SELECT Id_Auth FROM authentifiant WHERE Id_Auth = :id';
+    $query = $db->prepare($sql);
+    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($result as $row) {
+        if ($row['Id_Auth'] == $id) {
+            $authenticated = true;
+            break;
+        }
+    }
+}
+if (!$authenticated) {
+    header("Location: http://localhost/Code/index.php");
+   exit;
+}
+
+try{
+    $user='root';
+    $pass='';
+    $bd='projet';
+    $serveur='localhost';
+    $connexion = new PDO("mysql:host=$serveur;dbname=$bd", $user, $pass);
+    $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $connexion->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    die("La connexion à la base de données a échoué : " . $e->getMessage());
+}
+
+    $sql = 'SELECT `Id_Offre`,`Statut_offre`,`N_Offre`,`Desc_Offre` FROM offre ORDER BY Id_Offre DESC LIMIT 5';
+    // On prépare la requête
+    $query = $connexion->prepare($sql);
+    // On exécute la requête
+    $query->execute();
+    // On stocke le résultat dans un tableau associatif
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    //
+
+
+    $sql2 = 'SELECT `N_Etudiant`,`P_Etudiant`,COUNT(postule.Id_Etudiant) FROM etudiant INNER JOIN postule ON etudiant.Id_Etudiant = postule.Id_Etudiant GROUP BY etudiant.Id_etudiant ORDER BY COUNT(postule.Id_Etudiant) DESC LIMIT 5';
+    // On prépare la requête
+    $query2 = $connexion->prepare($sql2);
+    // On exécute la requête
+    $query2->execute();
+    // On stocke le résultat dans un tableau associatif
+    $result2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+
+    $sql3 = 'SELECT `N_Entreprise`,COUNT(offre.Id_Entreprise) FROM entreprise INNER JOIN offre ON entreprise.Id_Entreprise = offre.Id_Entreprise GROUP BY offre.Id_Entreprise ORDER BY COUNT(offre.Id_Entreprise) DESC LIMIT 5';
+    // On prépare la requête
+    $query3 = $connexion->prepare($sql3);
+    // On exécute la requête
+    $query3->execute();
+    // On stocke le résultat dans un tableau associatif
+    $result3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -13,39 +71,12 @@ $bd=new mysqli('localhost', $user, $pass, $bd) or die ("unable to connect");
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/style.css">
+        <link rel="stylesheet" href="http://localhost/code/accueil/nav_admin/style.css">
         <title> Accueil </title>
-        <script>
-            function afficherInfoAut() {
-                var infos = document.getElementById("infos");
-                if (infos.style.display === "none") {
-                    infos.style.display = "block";
-                } else {
-                    infos.style.display = "none";
-                }
-            }
-            function afficherInfoEtu() {
-                var infos = document.getElementById("infos_Etu");
-                if (infos.style.display === "none") {
-                    infos.style.display = "block";
-                } else {
-                    infos.style.display = "none";
-                }
-            }
-            function afficherInfoPil() {
-                var infos = document.getElementById("infos_Pil");
-                if (infos.style.display === "none") {
-                    infos.style.display = "block";
-                } else {
-                    infos.style.display = "none";
-                }
-            }
-
-        </script>
     </head>
     <body>
     <header>
-            <div class="logo"> <img src="http://localhost/B4/projet/L3/code/image/logo.png">
+            <div class="logo"> <img src="http://localhost/code/image/logo.png">
             </div>
             <div class="search-bar">
                 <input type="search" class="search" placeholder="rechercher">
@@ -58,17 +89,17 @@ $bd=new mysqli('localhost', $user, $pass, $bd) or die ("unable to connect");
             <nav class="nav-bar">
                 <ul>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/accueil_admin.php">Accueil</a> 
+                        <a href="http://localhost/code/accueil/nav_admin/accueil_admin.php">Accueil</a> 
                     </li>
                     <li>
                         <a>Utilisateurs</a> 
                         <div class="sous-menu">
                             <ul>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/etudiants_admin.php">Etudiants </a>
+                                    <a href="http://localhost/code/accueil/nav_admin/etudiants_admin.php">Etudiants </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/pilotes_admin.php">Pilotes </a>
+                                    <a href="http://localhost/code/accueil/nav_admin/pilotes_admin.php">Pilotes </a>
                                 </li>
                             </ul>
                         </div>  
@@ -78,94 +109,118 @@ $bd=new mysqli('localhost', $user, $pass, $bd) or die ("unable to connect");
                         <div class="sous-menu">
                             <ul>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/entreprises_admin.php" > Entreprises </a>
+                                    <a href="http://localhost/code/accueil/nav_admin/entreprises_admin.php" > Entreprises </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/offres_admin.php" > Offres </a>
+                                    <a href="http://localhost/code/accueil/nav_admin/offres_admin.php" > Offres </a>
                                 </li>
                             </ul>
                         </div>  
                     </li>
                     <li>
-                        <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/compte_admin.php">Votre compte</a> 
+                        <a>Votre compte</a>
+                        <div class="sous-menu">
+                            <ul>
+                                <li>
+                                    <a href="http://localhost/code/accueil/nav_admin/compte_admin.php">Compte</a>
+                                </li>
+                                <li>
+                                    <a href="http://localhost/code/index.php">Déconnexion </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </nav>
         </header>
 
-        Afficher les informations sur les authentifiants
-        <br>
-        <input type="button" onclick="afficherInfoAut()" value="AFFICHER">
-        <br>
-        <div id="infos" style="display:none">
-            <?php
-            $sql="SELECT * FROM authentifiant";
-            $result=mysqli_query($bd,$sql) or die ("bad query");
-            while($row=mysqli_fetch_assoc($result))
-            {
-                echo"{$row['Id_Auth']} - {$row['Login']} - {$row['Mdp']} - {$row['Admin']} - {$row['Pilote']} <br> ";
-            }
-            ?>
-        </div>
+    <section class="stat">
+        <div class="container">
 
-        Afficher les informations sur les étudiants
-        <br>
-        <input type="button" onclick="afficherInfoEtu()" value="AFFICHER">
-        <br>
-        <div id="infos_Etu" style="display:none">
-            <?php
-            $user='root';
-            $pass='';
-            $bd='projet';
-            $bd=new mysqli('localhost', $user, $pass, $bd) or die ("unable to connect");
-            $sql="SELECT * FROM etudiant";
-            $result=mysqli_query($bd,$sql) or die ("bad query");
-            while($row=mysqli_fetch_assoc($result))
-            {
-                echo"{$row['Id_Etudiant']} - {$row['N_Etudiant']} - {$row['P_Etudiant']} - {$row['Statut_Stage']} - {$row['Cv']} - {$row['Lettre_Motivation']} 
-                - {$row['Photo']} - {$row['Id_Promotion']}  - {$row['Id_Pilote']} - {$row['Id_Auth']} <br> ";
-            }
-            ?>
+        <table class="table_accueil">
+                    <thead>
+                        <th>ID</th>
+                        <th>Statut</th>
+                        <th>Offre</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // On boucle sur la variable result
+                        foreach($result as $etudiant){
+                        ?>
+                            <tr>
+                                <td><?= $etudiant['Id_Offre'] ?></td>
+                                <td><?= $etudiant['Statut_offre'] ?></td>
+                                <td><?= $etudiant['N_Offre'] ?></td>
+                                <td><?= $etudiant['Desc_Offre'] ?></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <table class="table_accueil">
+                    <thead>
+                        <th>Nom</th>
+                        <th>ID</th>
+                        <th>Nb postule</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // On boucle sur la variable result
+                        foreach($result2 as $etudiant2){
+                        ?>
+                            <tr>
+                                <td><?= $etudiant2['N_Etudiant'] ?></td>
+                                <td><?= $etudiant2['P_Etudiant'] ?></td>
+                                <td><?= $etudiant2['COUNT(postule.Id_Etudiant)'] ?></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <table class="table_accueil">
+                    <thead>
+                        <th>Nom entreprise</th>
+                        <th>nb offres proposées</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // On boucle sur la variable result
+                        foreach($result3 as $etudiant3){
+                        ?>
+                            <tr>
+                                <td><?= $etudiant3['N_Entreprise'] ?></td>
+                                <td><?= $etudiant3['COUNT(offre.Id_Entreprise)'] ?></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
         </div>
-
-        Afficher les informations sur les pilotes
-        <br>
-        <input type="button" onclick="afficherInfoPil()" value="AFFICHER">
-        <br>
-        <div id="infos_Pil" style="display:none">
-            <?php
-            $user='root';
-            $pass='';
-            $bd='projet';
-            $bd=new mysqli('localhost', $user, $pass, $bd) or die ("unable to connect");
-            $sql="SELECT * FROM pilote";
-            $result=mysqli_query($bd,$sql) or die ("bad query");
-            while($row=mysqli_fetch_assoc($result))
-            {
-                echo"{$row['Id_Pilote']} - {$row['N_Pilote']} - {$row['P_Pilote']} - {$row['Id_Auth']} <br> ";
-            }
-            ?>
-        </div>
-
+    </section>
         <footer>
             <ul>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/actualites.php">Actualités</a> 
+                    <a href="http://localhost/code/accueil/nav_admin/footer/actualites.php">Actualités</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/a_propos.php">À Propos</a> 
+                    <a href="http://localhost/code/accueil/nav_admin/footer/a_propos.php">À Propos</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/support.php">Support</a> 
+                    <a href="http://localhost/code/accueil/nav_admin/footer/support.php">Support</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/mentions_legales.php">Mentions Légales</a> 
+                    <a href="http://localhost/code/accueil/nav_admin/footer/mentions_legales.php">Mentions Légales</a> 
                 </li>
                 <li>
-                    <a href="http://localhost/B4/Projet/L3/code/accueil/nav_admin/footer/cgu.php">CGU</a> 
+                    <a href="http://localhost/code/accueil/nav_admin/footer/cgu.php">CGU</a> 
                 </li>
             </ul>
         </footer>
-        <script src="http://localhost/B4/Projet/L3/code/accueil/nav_admin/app.js"> </script>
+        <script src="http://localhost/code/accueil/nav_admin/app.js"> </script>
     </body>
 </html>
