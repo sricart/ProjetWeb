@@ -84,6 +84,21 @@
         </header>
 
         <br>
+        <?php
+            $Id_Auth = $_SESSION['id'];                            
+            require_once('CRUD_Etudiant/connect.php');          
+            $sql = 'SELECT `N_Pilote`, `P_Pilote`
+            FROM pilote 
+            JOIN authentifiant 
+            ON pilote.Id_Auth = authentifiant.Id_Auth
+            WHERE authentifiant.Id_Auth = :id';
+                            
+            $query = $db->prepare($sql);
+            $query->bindParam(':id', $Id_Auth, PDO::PARAM_INT);
+            $query->execute();
+            $pilote = $query->fetch(PDO::FETCH_ASSOC);
+            echo "<h2>" . 'Bienvenue ' . $pilote['N_Pilote']  . " " . $pilote['P_Pilote'] . "</h2>";
+        ?>
         <br>
 
         <footer>

@@ -55,6 +55,7 @@ header {
 }
 
 .nav-bar ul li:hover .sous-menu{
+    z-index: 1;
     display: block;
     position: absolute;
     background: black;
@@ -62,11 +63,13 @@ header {
 }
 
 .nav-bar ul li:hover .sous-menu ul{
+    z-index: 1;
     display: block;
     margin: 20px;
 }
 
 .nav-bar ul li:hover .sous-menu ul li{
+    z-index: 1;
     width: 200px;
     padding: 2px;
     border-bottom: 1px dotted black;
@@ -76,6 +79,7 @@ header {
 }
 
 .nav-bar ul li a {
+    z-index: 1;
     display: block;
     color: #fefefe;
     font-size: 20px;
@@ -87,11 +91,13 @@ header {
 }
 
 .nav-bar ul li a:hover {
+    z-index: 1;
     color: #11101b;
     background-color: #fefefe;
 }
 
 .nav-bar ul li a.active {
+    z-index: 1;
     color:#11101b;
     background-color: #fefefe;
 }
@@ -277,7 +283,8 @@ i.fa-trash {
 
 /* css du tableau de l'accueil */
 
-.table_accueil {
+.stat .table_accueil {
+    z-index: 0;
     border-collapse: collapse;
     max-width: 400px;
     margin: 0 auto;
@@ -285,27 +292,32 @@ i.fa-trash {
     font-size: 14px;
   }
   
-  th, td {
+  .stat   th, .stat td {
+    z-index: 0;
     border: 1px solid #ccc;
     padding: 8px;
     text-align: left;
   }
   
-  th {
+  .stat   th {
+    z-index: 0;
     background-color: #eee;
     font-weight: bold;
   }
   
-  tr:nth-child(even) {
+  .stat  tr:nth-child(even) {
+    z-index: 0;
     background-color: #f2f2f2;
   }
 
-  table{
+  .stat  table{
+    z-index: 0;
     color: blue;
     align-items: center;
   }
 
-  .container{
+  .stat   .container{
+    z-index: 0;
     position: relative;
     display: flex;
     flex-direction: raw;

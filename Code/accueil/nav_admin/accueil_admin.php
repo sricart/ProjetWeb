@@ -133,8 +133,10 @@ try{
                 </ul>
             </nav>
         </header>
+
+    <section class="stat">
         <div class="container">
-        
+
         <table class="table_accueil">
                     <thead>
                         <th>ID</th>
@@ -199,6 +201,7 @@ try{
                     </tbody>
                 </table>
         </div>
+    </section>
         <footer>
             <ul>
                 <li>
