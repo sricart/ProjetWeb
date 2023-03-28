@@ -60,7 +60,7 @@ if($_POST)
 
         require_once('close.php');
 
-        header('Location: http://localhost/code/accueil/nav_pilote/offres_pilote.php');
+        header('Location: http://localhost/code/accueil/nav_admin/offres_admin.php');
     }
     else
     {

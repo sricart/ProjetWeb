@@ -183,8 +183,8 @@
                                 <th>Description</th>
                                 <th>Note</th>
                                 <th>Adresse</th>
-                                <th></th>
-                                <th></th>
+                                <th>Modifier</th>
+                                <th>Supprimer</th>
                             </thead>
                             <tbody>
                                 <br>
@@ -202,7 +202,7 @@
                                         <td><?= $entreprise['Desc_E'] ?></td>
                                         <td><?= $entreprise['Note'] ?></td>
                                         <td><?= $entreprise['Numero'] ." ". $entreprise['N_Rue'] ." ". $entreprise['Ville'] ." ". $entreprise['CodeP'] ." ". $entreprise['Departement'] ." ". $entreprise['Region'] ." ". $entreprise['Complement']?></td>
-                                        <td><a href="CRUD_Entreprise/editEntreprise.php?Id_Entreprise=<?= $entreprise['Id_Entreprise'] ?>"><i class="fa solid fa-pen"></i></a></td> 
+                                        <td><a href="CRUD_Entreprise/editEntreprise.php?Id_Entreprise=<?= $entreprise['Id_Entreprise'] ?>"><i class="fa duotone fa-pencil"></i></a></td> 
                                         <td><a href="CRUD_Entreprise/deleteEntreprise.php?Id_Entreprise=<?= $entreprise['Id_Entreprise'] ?>"><i class="fa solid fa-trash"></i></a></td>
                                     </tr>
                                 <?php

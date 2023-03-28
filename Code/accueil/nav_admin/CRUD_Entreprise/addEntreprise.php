@@ -64,7 +64,7 @@ if($_POST)
                     }
                 ?>
 
-                <h1>Ajouter un étudiant</h1>
+                <h1>Ajouter une entreprise</h1>
                 <form method="post">
                     <div class="form-group">
                         <label for="N_Entreprise">Nom</label>

@@ -20,7 +20,7 @@
         header("Location: http://localhost/Code/index.php");
        exit;
     }
-    $sql = 'SELECT `Id_Pilote`,`N_Pilote`,`P_Pilote`,`Login`,`Mdp` 
+    $sql = 'SELECT * 
     FROM pilote 
     INNER JOIN authentifiant 
     ON pilote.ID_Auth = authentifiant.ID_Auth 
@@ -67,8 +67,6 @@
         ON authentifiant.Id_Auth = pilote.Id_Auth 
         INNER JOIN `promotion` 
         ON pilote.Id_Pilote = promotion.Id_Pilote 
-        INNER JOIN `centre` 
-        ON promotion.Id_Centre = centre.Id_Centre 
         WHERE `Admin`!="1" 
         AND `Pilote`!="0";';
 
