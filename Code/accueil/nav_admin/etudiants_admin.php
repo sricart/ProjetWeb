@@ -25,7 +25,63 @@
     $query = $db->prepare($sql);
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
-    require_once('CRUD_Etudiant/close.php');
+
+    if (isset($_POST['recherche']) && !empty(isset($_POST['recherche'])))
+    {
+        // On inclut la connexion à la base
+        require_once('CRUD_Etudiant/connect.php');
+        $recherche = $_POST['recherche'];
+        // Prépare la requête SQL
+        $sql = 'SELECT * 
+        FROM `authentifiant` 
+        INNER JOIN `etudiant` 
+        ON authentifiant.Id_Auth = etudiant.Id_Auth 
+        INNER JOIN `promotion` 
+        ON etudiant.Id_Promotion = promotion.Id_Promotion 
+        INNER JOIN `centre` 
+        ON promotion.Id_Centre = centre.Id_Centre 
+        WHERE N_Etudiant 
+        LIKE :recherche 
+        OR P_Etudiant 
+        LIKE :recherche 
+        OR promotion.Id_Centre 
+        LIKE :recherche 
+        OR etudiant.Id_Promotion 
+        LIKE :recherche;';
+        // On prépare la requête
+        $query = $db->prepare($sql);
+        // On exécute la requête
+        $query->execute(array(':recherche' => '%' . $recherche . '%'));
+        // On stocke le résultat dans un tableau associatif
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        // Affiche les résultats de la recherche
+        $_SESSION['message'] = '<h3>Résultats de la recherche "' . $recherche . '" </h3>';
+
+        require_once('CRUD_Etudiant/close.php');
+    }
+    else 
+    {
+        // On inclut la connexion à la base
+        require_once('CRUD_Etudiant/connect.php');
+        // Selectionne les infos importantes pour l'admin concernant les etudiants donc admin et pilote !=1
+        $sql = 'SELECT *
+        FROM `authentifiant` 
+        INNER JOIN `etudiant` 
+        ON authentifiant.Id_Auth = etudiant.Id_Auth 
+        INNER JOIN `promotion` 
+        ON etudiant.Id_Promotion = promotion.Id_Promotion 
+        INNER JOIN `centre` 
+        ON promotion.Id_Centre = centre.Id_Centre 
+        WHERE `Admin`!="1" 
+        AND `Pilote`!="1";';
+        // On prépare la requête
+        $query = $db->prepare($sql);
+        // On exécute la requête
+        $query->execute();
+        // On stocke le résultat dans un tableau associatif
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        require_once('CRUD_Etudiant/close.php');
+    }
 ?>
 
 <!DOCTYPE html>
@@ -61,9 +117,6 @@
     <body>
     <header>
             <div class="logo"> <img src="http://localhost/code/image/logo.png">
-            </div>
-            <div class="search-bar">
-                <input type="search" class="search" placeholder="rechercher">
             </div>
             <div class="hamburger">
                 <div class="line"></div>
@@ -135,9 +188,16 @@
                         $_SESSION['message'] = "";
                     }
                 ?>
+        <section class="barre">
         <input type="button" onclick="afficherInfo()" value="AFFICHER" class="btn_afficher">
+        <form id="infos" method="POST" style="display:none">
+                    <label for="recherche">Rechercher :</label>
+                    <input type="text" name="recherche" id="recherche" placeholder="nom, prénom, promotion, centre">
+                    <input type="submit" value="Rechercher">
+                </form>
+        </section>
         <br>
-        <div id="infos" class="container" style="display:none" >
+        <div class="container">
         <div class="row">
             <section class="col-12">
                 

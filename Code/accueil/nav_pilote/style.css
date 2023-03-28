@@ -268,3 +268,97 @@ i.fa-trash {
     color:white;
     font-size: 1em;
 }
+
+.barre {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.2em;
+    padding: 5px;
+  }
+  
+  .barre input[type="button"],
+  .barre input[type="submit"] {
+    padding: 0.5em 1em;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .barre input[type="button"]:hover,
+  .barre input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  
+  .barre label {
+    margin-right: 1em;
+  }
+  
+  .barre input[type="text"] {
+    height: 40px;
+    padding: 0.5em;
+    width: 40em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .barre input[type="submit"] {
+    margin-left: 1em;
+  }
+
+  .aff_promo h1 {
+    margin: 20px;
+    text-decoration: underline;
+  }
+  
+  .aff_promo table {
+    background-color: #f5f5f5;
+  }
+
+    .btn_retour {
+    display: inline-block;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+
+  .btn_retour{
+    background-color: #C40000;
+  }
+
+  .btn_retour:hover{
+    background-color: #B30000;
+  } 
+
+  .afficheoffre {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .afficheoffre h1 {
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .afficheoffre h2 {
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+  
+  .afficheoffre p {
+    margin-bottom: 10px;
+  }
+  
