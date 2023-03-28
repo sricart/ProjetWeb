@@ -62,28 +62,20 @@
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
+        <meta name="description" content="Page d'accueil de l'étudiant">
+        <meta name="keywords" content="Accueil etudiant">
+        <meta name="author" content="Groupe 2">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="http://localhost/code/accueil/nav_etudiant/style.css">
+        <link rel="stylesheet" href="style.css">
         <title> Accueil </title>
-        <script>
-            function afficherInfo() {
-                var infos = document.getElementById("infos");
-                if (infos.style.display === "none") {
-                    infos.style.display = "block";
-                } else {
-                    infos.style.display = "none";
-                }
-            }
-
-            function deconnexionConfirm() {
+        <script> 
+                function deconnexionConfirm() {
                 if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
                     window.location.href = "http://localhost/code/index.php";
                     return true;
@@ -95,16 +87,12 @@
     </head>
     <body>
         <header>
-            <div class="logo"> <img src="http://localhost/code/image/logo.png">
-            </div>
-            <div class="search-bar">
-                <input type="search" class="search" placeholder="rechercher">
-            </div>
-            <div class="hamburger">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-            </div>
+            <div class="logo"> <img src="http://localhost/code/image/logo.png" alt="logo"></div>
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
             <nav class="nav-bar">
                 <ul>
                     <li>
@@ -155,24 +143,24 @@
 
         <br>
         <?php
-        $Id_Auth = $_SESSION['id'];                            
-        require_once('CRUD_Offre/connect.php');          
-        $sql = 'SELECT P_Etudiant
-        FROM etudiant 
-        JOIN authentifiant 
-        ON etudiant.Id_Auth = authentifiant.Id_Auth
-        WHERE authentifiant.Id_Auth = :id';
-                        
-        $query = $db->prepare($sql);
-        $query->bindParam(':id', $Id_Auth, PDO::PARAM_INT);
-        $query->execute();
-        $etudiant = $query->fetch(PDO::FETCH_ASSOC);
-        echo "<h2>" . 'Bienvenue ' . $etudiant['P_Etudiant']  .  "</h2>";
+            $Id_Auth = $_SESSION['id'];                            
+            require_once('CRUD_Offre/connect.php');          
+            $sql = 'SELECT P_Etudiant
+            FROM etudiant 
+            JOIN authentifiant 
+            ON etudiant.Id_Auth = authentifiant.Id_Auth
+            WHERE authentifiant.Id_Auth = :id';
+                            
+            $query = $db->prepare($sql);
+            $query->bindParam(':id', $Id_Auth, PDO::PARAM_INT);
+            $query->execute();
+            $etudiant = $query->fetch(PDO::FETCH_ASSOC);
+            echo "<h1>" . 'Bienvenue ' . $etudiant['P_Etudiant']  .  "</h1>";
         ?>
         <br>
         <section class="stat">
             <div class="container">
-        <table class="table_accueil">
+                <table class="table_accueil">
                     <thead>
                         <th>ID</th>
                         <th>Statut</th>
@@ -181,8 +169,7 @@
                     </thead>
                     <tbody>
                         <?php
-                        // On boucle sur la variable result
-                        foreach($result as $etudiant){
+                            foreach($result as $etudiant){
                         ?>
                             <tr>
                                 <td><?= $etudiant['Id_Offre'] ?></td>
@@ -191,12 +178,12 @@
                                 <td><?= $etudiant['Desc_Offre'] ?></td>
                             </tr>
                         <?php
-                        }
+                            }
                         ?>
                     </tbody>
-        </table>
+                </table>
 
-        <table class="table_accueil">
+                <table class="table_accueil">
                     <thead>
                         <th>Nom entreprise</th>
                         <th>description entreprise</th>
@@ -206,22 +193,21 @@
                     </thead>
                     <tbody>
                         <?php
-                        // On boucle sur la variable result
-                        foreach($result2 as $etudiant2){
+                            foreach($result2 as $etudiant2){
                         ?>
-                            <tr>
+                        <tr>
                             <td><?= $etudiant2['N_entreprise'] ?></td>
-                                <td><?= $etudiant2['Desc_E'] ?></td>
-                                <td><?= $etudiant2['Siret'] ?></td>
-                                <td><?= $etudiant2['Nb_Etudiant'] ?></td>
-                                <td><?= $etudiant2['Note'] ?></td>
-                            </tr>
+                            <td><?= $etudiant2['Desc_E'] ?></td>
+                            <td><?= $etudiant2['Siret'] ?></td>
+                            <td><?= $etudiant2['Nb_Etudiant'] ?></td>
+                            <td><?= $etudiant2['Note'] ?></td>
+                        </tr>
                         <?php
-                        }
+                            }
                         ?>
                     </tbody>
-        </table>
-                    </div>
+                </table>
+            </div>
         </section>
         <footer>
             <ul>

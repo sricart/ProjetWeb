@@ -24,30 +24,69 @@
     $sql = 'SELECT `Id_Offre`,`N_Offre`,`Statut_Offre`,`N_Entreprise`,`Duree`,`Recommandation`,`Remuneration` FROM offre INNER JOIN entreprise ON offre.ID_Entreprise = offre.ID_Entreprise WHERE `statut_Offre`!="close";';
     $query = $db->prepare($sql);
     $query->execute();
-    $result = $query->fetchAll(PDO::FETCH_ASSOC);
-    require_once('CRUD_Offre/close.php');
+    $offre = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    if (isset($_POST['recherche']) && !empty(isset($_POST['recherche'])))
+    {
+        // On inclut la connexion à la base
+        require_once('CRUD_Offre/connect.php');
+
+        $recherche = $_POST['recherche'];
+
+        // Prépare la requête SQL
+        $sql = 'SELECT * FROM `offre` 
+        INNER JOIN `entreprise` ON offre.Id_Entreprise = entreprise.Id_Entreprise 
+        INNER JOIN `adresse` ON entreprise.Id_entreprise = adresse.Id_Entreprise
+        INNER JOIN pilote ON pilote.Id_Pilote = offre.Id_Pilote
+        WHERE Statut_Offre LIKE :recherche
+        OR Duree LIKE :recherche
+        OR N_Entreprise LIKE :recherche
+        OR Remuneration LIKE :recherche
+        OR Ville LIKE :recherche
+        OR Region LIKE :recherche
+        OR Departement LIKE :recherche
+        OR Desc_Offre Like :recherche
+        OR N_Offre Like :recherche;';
+        // On prépare la requête
+        $query = $db->prepare($sql);
+        // On exécute la requête
+        $query->execute(array(':recherche' => '%' . $recherche . '%'));
+        // On stocke le résultat dans un tableau associatif
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        // Affiche les résultats de la recherche
+        $_SESSION['message'] = '<h3>Résultats de la recherche "' . $recherche . '" :</h3>';
+        require_once('CRUD_Offre/close.php');
+    }
+    else 
+    {
+        // On inclut la connexion à la base
+        require_once('CRUD_Offre/connect.php');
+        // Selectionne les infos importantes pour l'admin concernant les etudiants donc admin et pilote !=1
+        $sql = 'SELECT * FROM `offre` 
+        INNER JOIN `entreprise` ON offre.Id_Entreprise = entreprise.Id_Entreprise 
+        INNER JOIN `adresse` ON entreprise.Id_entreprise = adresse.Id_Entreprise
+        INNER JOIN pilote ON pilote.Id_Pilote = offre.Id_Pilote;';
+        // On prépare la requête
+        $query = $db->prepare($sql);
+        // On exécute la requête
+        $query->execute();
+        // On stocke le résultat dans un tableau associatif
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="utf-8">
+        <meta name="description" content="Page d'affichage des offres disponibles pour l'étudiant">
+        <meta name="keywords" content="offre etudiant">
+        <meta name="author" content="Groupe 2">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <title> Offres </title>
-
         <script>
-            function afficherInfo() {
-                var infos = document.getElementById("infos");
-                if (infos.style.display === "none") {
-                    infos.style.display = "block";
-                } else {
-                    infos.style.display = "none";
-                }
-            }
-
             function deconnexionConfirm() {
                 if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
                     window.location.href = "http://localhost/code/index.php";
@@ -62,11 +101,7 @@
     
     <body>
         <header>
-            <div class="logo"> <img src="http://localhost/code/image/logo.png">
-            </div>
-            <div class="search-bar">
-                <input type="search" class="search" placeholder="rechercher">
-            </div>
+            <div class="logo"> <img src="http://localhost/code/image/logo.png" alt="logo"></div>
             <div class="hamburger">
                 <div class="line"></div>
                 <div class="line"></div>
@@ -122,67 +157,71 @@
 
         <br>
 
-        <h1>Liste des offres</h1>
-        <?php
-                    if(!empty($_SESSION['erreur'])){
-                        echo '<div class="alert alert-danger" role="alert">
-                                '. $_SESSION['erreur'].'
-                            </div>';
-                        $_SESSION['erreur'] = "";
-                    }
-                ?>
-                <?php
-                    if(!empty($_SESSION['message'])){
-                        echo '<div class="alert alert-success" role="alert">
-                                '. $_SESSION['message'].'
-                            </div>';
-                        $_SESSION['message'] = "";
-                    }
-                ?>
-        <br>
-        <div id="infos" class="container"  >
-        <div class="row">
-            <section class="col-12">
-                
-                <table class="table">
-                    <thead>
-                        <th>Nom de l'offre</th>
-                        <th>Statut</th>
-                        <th>Nom de l'entreprise</th>
-                        <th>Durée</th>
-                        <th>Recommandé</th>
-                        <th>Rémunération</th>
-                        <th></th>
-                    </thead>
-                    <tbody>
-                        <?php
-                        // On boucle sur la variable result
-                        foreach($result as $offre){
-                        ?>
-                            <tr>
-                                <td><?= $offre['N_Offre'] ?></td>
-                                <td><?= $offre['Statut_Offre'] ?></td>
-                                <td><?= $offre['N_Entreprise'] ?></td>
-                                <td><?= $offre['Duree'] ?></td>
-                                <td><?php if($offre['Recommandation'] == 1){
-                                            echo '<i class="fa solid fa-thumbs-up"></i>';
-                                        }
-                                        else{
-                                            echo '<i class="fa solid fa-thumbs-down"></i>';
-                                        } 
-                                    ?>       
-                                </td>
-                                <td><?= $offre['Remuneration'] ?></td>
-                                <td><a href="http://localhost/Code/accueil/nav_etudiant/afficher_offres.php?Id_Offre=<?= $offre['Id_Offre'] ?>"><i class="fa solid fa-eye"></i></a></td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
-                    </tbody>
-                </table>
+        <main>    
+            <h1>Liste des offres</h1>
+            <?php
+                if(!empty($_SESSION['erreur'])){
+                    echo '<div class="alert alert-danger" role="alert">' . $_SESSION['erreur'] . '</div>';
+                    $_SESSION['erreur'] = "";
+                }
+            ?>
+            <?php
+                if(!empty($_SESSION['message'])){
+                    echo '<div class="alert alert-success" role="alert">' . $_SESSION['message'] . '</div>';
+                    $_SESSION['message'] = "";
+                }
+            ?>
+            <section class="barre">
+                <form method="POST">
+                    <label for="recherche">Rechercher :</label>
+                    <input type="text" name="recherche" id="recherche" placeholder=" nom, description, ville, région, département, secteur">
+                    <input type="submit" value="Rechercher">
+                </form>
             </section>
+            <div id="infos" class="container"  >
+                <div class="row">
+                    <section class="col-12">
+                        <table class="table">
+                            <thead>
+                                <th>Nom de l'offre</th>
+                                <th>Statut</th>
+                                <th>Nom de l'entreprise</th>
+                                <th>Durée</th>
+                                <th>Recommandé</th>
+                                <th>Rémunération</th>
+                                <th>Voir</th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    foreach($offre as $offre){
+                                ?>
+                                <tr>
+                                    <td><?= $offre['N_Offre'] ?></td>
+                                    <td><?= $offre['Statut_Offre'] ?></td>
+                                    <td><?= $offre['N_Entreprise'] ?></td>
+                                    <td><?= $offre['Duree'] ?></td>
+                                    <td>
+                                        <?php 
+                                            if($offre['Recommandation'] == 1){
+                                                echo '<i class="fa solid fa-thumbs-up"></i>';
+                                            }
+                                            else{
+                                                echo '<i class="fa solid fa-thumbs-down"></i>';
+                                                } 
+                                        ?>       
+                                    </td>
+                                    <td><?= $offre['Remuneration'] ?></td>
+                                    <td><a href="http://localhost/Code/accueil/nav_etudiant/afficher_offres.php?Id_Offre=<?= $offre['Id_Offre'] ?>"><i class="fa solid fa-eye"></i></a></td>
+                                </tr>
+                                <?php
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
             </div>
-        </div>
+        </main>
 
         <br>
 

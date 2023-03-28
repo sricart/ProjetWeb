@@ -41,23 +41,22 @@
     ORDER BY Id_Offre 
     DESC LIMIT 5';
     
-    // On prépare la requête
     $query2 = $connexion->prepare($sql2);
-    // On exécute la requête
     $query2->execute();
-    // On stocke le résultat dans un tableau associatif
     $result2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
-    <meta charset="utf-8">
+        <meta charset="utf-8">
+        <meta name="description" content="Page d'accueil du pilote">
+        <meta name="keywords" content="Accueil pilote">
+        <meta name="author" content="Groupe 2">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="http://localhost/code/accueil/nav_pilote/style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Accueil</title>
         <script>
@@ -72,9 +71,8 @@
         </script>
     </head>
     <body>
-    <header>
-            <div class="logo"> <img src="http://localhost/code/image/logo.png">
-            </div>
+        <header>
+            <div class="logo"> <img src="http://localhost/code/image/logo.png"alt="logo"></div>
             <div class="hamburger">
                 <div class="line"></div>
                 <div class="line"></div>
@@ -119,49 +117,53 @@
         </header>
 
         <br>
-        <?php
-            $Id_Auth = $_SESSION['id'];                            
-            require_once('CRUD_Etudiant/connect.php');          
-            $sql = 'SELECT `N_Pilote`, `P_Pilote`
-            FROM pilote 
-            JOIN authentifiant 
-            ON pilote.Id_Auth = authentifiant.Id_Auth
-            WHERE authentifiant.Id_Auth = :id';
-                            
-            $query = $db->prepare($sql);
-            $query->bindParam(':id', $Id_Auth, PDO::PARAM_INT);
-            $query->execute();
-            $pilote = $query->fetch(PDO::FETCH_ASSOC);
-            echo "<h2>" . 'Bienvenue ' . $pilote['N_Pilote']  . " " . $pilote['P_Pilote'] . "</h2>";
-        ?>
-        <br>
-        <section class="stat">
-            <div class="container">
-                <table class="table_accueil">
-                            <thead>
-                                <th>ID</th>
-                                <th>Statut</th>
-                                <th>Offre</th>
-                                <th>Description</th>
-                            </thead>
-                            <tbody>
-                                <?php
-                                // On boucle sur la variable result
+
+        <main>
+            <?php
+                $Id_Auth = $_SESSION['id'];                            
+                require_once('CRUD_Etudiant/connect.php');          
+                $sql = 'SELECT `N_Pilote`, `P_Pilote`
+                FROM pilote 
+                JOIN authentifiant 
+                ON pilote.Id_Auth = authentifiant.Id_Auth
+                WHERE authentifiant.Id_Auth = :id';
+                                
+                $query = $db->prepare($sql);
+                $query->bindParam(':id', $Id_Auth, PDO::PARAM_INT);
+                $query->execute();
+                $pilote = $query->fetch(PDO::FETCH_ASSOC);
+                echo "<h2>" . 'Bienvenue ' . $pilote['N_Pilote']  . " " . $pilote['P_Pilote'] . "</h2>";
+            ?>
+            <section class="stat">
+                <div class="container">
+                    <table class="table_accueil">
+                        <thead>
+                            <th>ID</th>
+                            <th>Statut</th>
+                            <th>Offre</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <?php
                                 foreach($result2 as $etudiant2){
-                                ?>
-                                    <tr>
-                                        <td><?= $etudiant2['Id_Offre'] ?></td>
-                                        <td><?= $etudiant2['Statut_offre'] ?></td>
-                                        <td><?= $etudiant2['N_Offre'] ?></td>
-                                        <td><?= $etudiant['Desc_Offre'] ?></td>
-                                    </tr>
-                                <?php
+                            ?>
+                            <tr>
+                                <td><?= $etudiant2['Id_Offre'] ?></td>
+                                <td><?= $etudiant2['Statut_offre'] ?></td>
+                                <td><?= $etudiant2['N_Offre'] ?></td>
+                                <td><?= $etudiant['Desc_Offre'] ?></td>
+                            </tr>
+                            <?php
                                 }
-                                ?>
-                            </tbody>
-                </table>
-            </div>
-        </section>
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <br>
+
         <footer>
             <ul>
                 <li>

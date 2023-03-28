@@ -28,7 +28,7 @@ if(isset($_GET['Id_Entreprise']) && !empty($_GET['Id_Entreprise']))
     if(!$etudiant)
     {
         $_SESSION['erreur'] = "Cet id n'existe pas";
-        header('Location: http://localhost/Code/accueil/nav_admin/entreprises_admin.php');
+        header('Location: localhost/Code/accueil/nav_admin/entreprises_admin.php');
         die();
     }
 
@@ -45,12 +45,12 @@ if(isset($_GET['Id_Entreprise']) && !empty($_GET['Id_Entreprise']))
     // On exécute la requête
     $query->execute();
     $_SESSION['message'] = "Entreprise supprimé";
-    header('Location: http://localhost/Code/accueil/nav_admin/entreprises_admin.php');
+    header('Location: localhost/Code/accueil/nav_admin/entreprises_admin.php');
 }
 
 else
 {
     $_SESSION['erreur'] = "URL invalide";
-    header('Location: http://localhost/Code/accueil/nav_admin/entreprises_admin.php');
+    header('Location: localhost/Code/accueil/nav_admin/entreprises_admin.php');
 }
 ?>

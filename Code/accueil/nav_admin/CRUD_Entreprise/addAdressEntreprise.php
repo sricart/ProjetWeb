@@ -6,8 +6,8 @@ if($_POST)
 {
     if(isset($_POST['Numero']) && !empty($_POST['Numero'])
     && isset($_POST['N_Rue']) && !empty($_POST['N_Rue'])
-    && isset($_POST['CodeP']) && !empty($_POST['CodeP'])
-    && isset($_POST['Ville']) && !empty($_POST['Ville'])
+    && isset($_POST['zipcode']) && !empty($_POST['zipcode'])
+    && isset($_POST['city']) && !empty($_POST['city'])
     && isset($_POST['Departement']) && !empty($_POST['Departement'])
     && isset($_POST['Region']) && !empty($_POST['Region'])
     && isset($_POST['Complement']))
@@ -18,14 +18,15 @@ if($_POST)
         // On nettoie les données envoyées
         $numero = strip_tags($_POST['Numero']);
         $rue = strip_tags($_POST['N_Rue']);
-        $codep = strip_tags($_POST['CodeP']);
-        $ville = strip_tags($_POST['Ville']);
+        $codep = strip_tags($_POST['zipcode']);
+        $ville = strip_tags($_POST['city']);
         $dep = strip_tags($_POST['Departement']);
         $region = strip_tags($_POST['Region']);
         $compl = strip_tags($_POST['Complement']);
         $entreprise = strip_tags($_POST['Id_Entreprise']);
 
-        $sql = 'INSERT INTO `adresse` (`Numero`, `N_Rue`, `CodeP`, `Ville`, `Departement`, `Region`, `Complement`, `Id_Entreprise`) VALUES (:numero, :rue, :codep, :ville, :dep, :region, :compl, (SELECT MAX(Id_Entreprise) FROM `entreprise`));';
+        $sql = 'INSERT INTO `adresse` (`Numero`, `N_Rue`, `CodeP`, `Ville`, `Departement`, `Region`, `Complement`, `Id_Entreprise`) 
+        VALUES (:numero, :rue, :codep, :ville, :dep, :region, :compl, (SELECT MAX(Id_Entreprise) FROM `entreprise`));';
         $query = $db->prepare($sql);
 
         $query->bindValue(':numero', $numero, PDO::PARAM_INT);
@@ -39,7 +40,7 @@ if($_POST)
         $query->execute();
 
         require_once('close.php');
-        header('Location: index.php');
+        header('Location: localhost/Code/accueil/nav_admin/entreprises_admin.php');
     }
     else
     {
@@ -81,13 +82,16 @@ if($_POST)
                         <input type="text" id="N_Rue" name="N_Rue" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="CodeP">Code Postal</label>
-                        <input type="text" id="CodeP" name="CodeP" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="Ville">Ville</label>
-                        <input type="text" id="Ville" name="Ville" class="form-control">
-                    </div>
+				    <label for="zipcode">Code Postal</label>
+				    <input type="text" name="zipcode" class="form-control" placeholder="Code postal" id="zipcode">
+				    <div style="display: none; color: #f55;" id="error-message"></div>
+				    </div>
+				    <div class="form-group">
+				        <label for="city">Ville</label>
+				        <select class="form-control" name="city" id="city">
+
+				        </select>
+				    </div>
                     <div class="form-group">
                         <label for="Departement">Département</label>
                         <input type="text" id="Departement" name="Departement" class="form-control">
@@ -105,5 +109,8 @@ if($_POST)
             </section>
         </div>
     </main>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="script.js"></script>
 </body>
 </html>

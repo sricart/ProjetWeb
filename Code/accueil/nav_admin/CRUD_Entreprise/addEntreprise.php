@@ -33,7 +33,7 @@ if($_POST)
 
         require_once('close.php');
 
-        header('Location: addadressEntreprise.php');
+        header('Location: localhost/Code/accueil/nav_admin/entreprises_admin.php');
     }
     else
     {

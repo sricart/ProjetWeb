@@ -23,14 +23,15 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="utf-8">
+        <meta name="description" content="Page d'affichage du compte de l'étudiant">
+        <meta name="keywords" content="Compte etudiant">
+        <meta name="author" content="Groupe 2">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
         <title> Compte </title>
         <script>
             function afficherInfo() {
@@ -54,10 +55,7 @@
     </head>
     <body>
         <header>
-            <div class="logo"> <img src="http://localhost/code/image/logo.png">
-            </div>
-            <div class="search-bar">
-                <input type="search" class="search" placeholder="rechercher">
+            <div class="logo"> <img src="http://localhost/code/image/logo.png" alt="logo">
             </div>
             <div class="hamburger">
                 <div class="line"></div>

@@ -61,7 +61,7 @@ if($_POST)
         $_SESSION['message'] = "Entreprise modifiée";
         require_once('close.php');
 
-        header('Location: http://localhost/Code/accueil/nav_admin/entreprises_admin.php');
+        header('Location: localhost/Code/accueil/nav_admin/entreprises_admin.php');
     }
     else
     {
@@ -93,11 +93,11 @@ if(isset($_GET['Id_Entreprise']) && !empty($_GET['Id_Entreprise'])){
     // On vérifie si le produit existe
     if(!$entreprise){
         $_SESSION['erreur'] = "Cet id n'existe pas";
-        header('Location: http://localhost/Code/accueil/nav_admin/entreprises_admin.php');
+        header('Location: localhost/Code/accueil/nav_admin/entreprises_admin.php');
     }
 }else{
     $_SESSION['erreur'] = "URL invalide";
-    header('Location: http://localhost/Code/accueil/nav_admin/entreprises_admin.php');
+    header('Location: localhost/Code/accueil/nav_admin/entreprises_admin.php');
 }
 
 ?>
