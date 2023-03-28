@@ -26,14 +26,14 @@
                         $query->execute();
                         $etudiant = $query->fetch(PDO::FETCH_ASSOC);
                     
-                        $sql = 'INSERT INTO `postule` (`Id_Offre`,`Id_Etudiant`) VALUES (:Id_Offre, :etudiant);';
+                        $sql = 'INSERT INTO `souhaite` (`Id_Offre`,`Id_Etudiant`) VALUES (:Id_Offre, :etudiant);';
                         $query = $db->prepare($sql);
                         $query->bindValue(':Id_Offre', $Id_Offre, PDO::PARAM_STR);
                         $query->bindValue(":etudiant", $etudiant['Id_Etudiant'], PDO::PARAM_STR);
                         $query->execute();
-                        $_SESSION['message'] = "Vous avez postulé";
+                        $_SESSION['message'] = "Vous avez ajouté l'offre à votre liste de souhaits";
                         require_once('close.php');
-                        header("Location: http://localhost/Code/accueil/nav_etudiant/candidatures.php");
+                        header("Location: http://localhost/Code/accueil/nav_etudiant/liste_souhaits.php");
                 ?>
                 <p>Etes-vous sûr de vouloir postuler à l'offre ?</p>
                 <a href="http://localhost/Code/accueil/nav_etudiant/offres_etudiant.php" class="btn_retour">Retour</a>

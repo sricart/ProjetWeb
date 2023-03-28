@@ -49,7 +49,7 @@
         // On stocke le résultat dans un tableau associatif
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         // Affiche les résultats de la recherche
-        $_SESSION['message'] = '<h3>Résultats de la recherche "' . $recherche . '" :</h3>';
+        $_SESSION['message'] = '<h4>Résultats de la recherche "' . $recherche . '" :</h4>';
     }
     else 
     {
