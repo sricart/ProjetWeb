@@ -20,11 +20,70 @@
         header("Location: http://localhost/Code/index.php");
        exit;
     }
-    $sql = 'SELECT `Id_Pilote`,`N_Pilote`,`P_Pilote`,`Login`,`Mdp` FROM pilote INNER JOIN authentifiant ON pilote.ID_Auth = authentifiant.ID_Auth WHERE `Admin`!="1" AND `Pilote`!="0";';
+    $sql = 'SELECT `Id_Pilote`,`N_Pilote`,`P_Pilote`,`Login`,`Mdp` 
+    FROM pilote 
+    INNER JOIN authentifiant 
+    ON pilote.ID_Auth = authentifiant.ID_Auth 
+    WHERE `Admin`!="1"
+    AND `Pilote`!="0";';
+
     $query = $db->prepare($sql);
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
-    require_once('CRUD_Pilote/close.php');
+
+    if (isset($_POST['recherche']) && !empty(isset($_POST['recherche'])))
+    {
+        // On inclut la connexion à la base
+        require_once('CRUD_Etudiant/connect.php');
+        $recherche = $_POST['recherche'];
+        // Prépare la requête SQL
+        $sql = 'SELECT * 
+        FROM `authentifiant` 
+        INNER JOIN `pilote` 
+        ON authentifiant.Id_Auth = pilote.Id_Auth 
+        INNER JOIN `promotion` 
+        ON pilote.Id_Pilote = promotion.Id_Pilote 
+        INNER JOIN `centre` 
+        ON promotion.Id_Centre = centre.Id_Centre 
+        WHERE N_Pilote 
+        LIKE :recherche 
+        OR P_Pilote 
+        LIKE :recherche 
+        OR centre.Id_Centre 
+        LIKE :recherche 
+        OR promotion.Id_Promotion 
+        LIKE :recherche;';
+ 
+        $query = $db->prepare($sql);
+        $query->execute(array(':recherche' => '%' . $recherche . '%'));
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $_SESSION['message'] = '<h3>Résultats de la recherche "' . $recherche . '" </h3>';
+        require_once('CRUD_Etudiant/close.php');
+    }
+    else 
+    {
+        // On inclut la connexion à la base
+        require_once('CRUD_Etudiant/connect.php');
+        // Selectionne les infos importantes pour l'admin concernant les etudiants donc admin et pilote !=1
+        $sql = 'SELECT * 
+        FROM `authentifiant` 
+        INNER JOIN `pilote` 
+        ON authentifiant.Id_Auth = pilote.Id_Auth 
+        INNER JOIN `promotion` 
+        ON pilote.Id_Pilote = promotion.Id_Pilote 
+        INNER JOIN `centre` 
+        ON promotion.Id_Centre = centre.Id_Centre 
+        WHERE `Admin`!="1" 
+        AND `Pilote`!="0";';
+        // On prépare la requête
+        $query = $db->prepare($sql);
+        // On exécute la requête
+        $query->execute();
+        // On stocke le résultat dans un tableau associatif
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        require_once('CRUD_Etudiant/close.php');
+    }
+    
 ?>
 
 <!DOCTYPE html>
@@ -60,9 +119,6 @@
     <body>
     <header>
             <div class="logo"> <img src="http://localhost/code/image/logo.png">
-            </div>
-            <div class="search-bar">
-                <input type="search" class="search" placeholder="rechercher">
             </div>
             <div class="hamburger">
                 <div class="line"></div>
@@ -134,9 +190,16 @@
                         $_SESSION['message'] = "";
                     }
                 ?>
+                <section class="barre">
         <input type="button" onclick="afficherInfo()" value="AFFICHER" class="btn_afficher">
+        <form id="infos" method="POST" style="display:none">
+                    <label for="recherche">Rechercher :</label>
+                    <input type="text" name="recherche" id="recherche" placeholder="nom, prénom, promotion, centre">
+                    <input type="submit" value="Rechercher">
+                </form>
+        </section>
         <br>
-        <div id="infos" class="container" style="display:none" >
+        <div class="container">
         <div class="row">
             <section class="col-12">
                 
@@ -147,23 +210,25 @@
                         <th>Prénom</th>
                         <th>Email</th>
                         <th>Mot de passe</th>
-                        <th></th>
-                        <th></th>
+                        <th>Liste des promotions</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
                     </thead>
                     <tbody>
-                        <a href="http://localhost/Code/accueil/nav_admin/CRUD_Pilote/addAuthEtudiant.php" class="btn_ajout">Ajouter un étudiant</a>
+                        <a href="http://localhost/Code/accueil/nav_admin/CRUD_Pilote/addAuthEtudiant.php" class="btn_ajout">Ajouter un pilote</a>
                         <?php
                         // On boucle sur la variable result
-                        foreach($result as $etudiant){
+                        foreach($result as $pilote){
                         ?>
                             <tr>
-                                <td><?= $etudiant['Id_Pilote'] ?></td>
-                                <td><?= $etudiant['N_Pilote'] ?></td>
-                                <td><?= $etudiant['P_Pilote'] ?></td>
-                                <td><?= $etudiant['Login'] ?></td>
-                                <td><?= $etudiant['Mdp'] ?></td>
-                                <td><a href="http://localhost/Code/accueil/nav_admin/CRUD_Pilote/editEtudiant.php?Id_Pilote=<?= $etudiant['Id_Pilote'] ?>"><i class="fa duotone fa-pencil"></i></a></td> 
-                                <td><a href="http://localhost/Code/accueil/nav_admin/CRUD_Pilote/deleteEtudiant.php?Id_Pilote=<?= $etudiant['Id_Pilote'] ?>"><i class="fa solid fa-trash"></i></a></td>
+                                <td><?= $pilote['Id_Pilote'] ?></td>
+                                <td><?= $pilote['N_Pilote'] ?></td>
+                                <td><?= $pilote['P_Pilote'] ?></td>
+                                <td><?= $pilote['Login'] ?></td>
+                                <td><?= $pilote['Mdp'] ?></td>
+                                <td><a href="http://localhost/Code/accueil/nav_admin/afficher_centre.php?Id_Pilote=<?= $pilote['Id_Pilote'] ?>"> <i class="fa solid fa-list"></i></a></td>
+                                <td><a href="http://localhost/Code/accueil/nav_admin/CRUD_Pilote/editEtudiant.php?Id_Pilote=<?= $pilote['Id_Pilote'] ?>"><i class="fa duotone fa-pencil"></i></a></td> 
+                                <td><a href="http://localhost/Code/accueil/nav_admin/CRUD_Pilote/deleteEtudiant.php?Id_Pilote=<?= $pilote['Id_Pilote'] ?>"><i class="fa solid fa-trash"></i></a></td>
                             </tr>
                         <?php
                         }
