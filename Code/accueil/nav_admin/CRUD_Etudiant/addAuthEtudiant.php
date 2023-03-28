@@ -8,7 +8,7 @@ if($_POST)
     && isset($_POST['Mdp']) && !empty($_POST['Mdp']))
     {
         // On inclut la connexion à la base
-        require_once('CRUD_Etudiant/connect.php');
+        require_once('connect.php');
 
         // On nettoie les données envoyées
         $log = strip_tags($_POST['Login']);
@@ -38,7 +38,7 @@ if($_POST)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un produit</title>
+    <title>Ajouter un étudiant</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
