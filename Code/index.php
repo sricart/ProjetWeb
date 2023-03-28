@@ -57,10 +57,12 @@ if(isset($_POST['submit'])){
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="utf-8">
-        <html lang="fr">
+        <meta name="description" content="Page de connexion">
+        <meta name="keywords" content="Connexion">
+        <meta name="author" content="Groupe 2">
         <link rel="stylesheet" href="style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -79,11 +81,11 @@ if(isset($_POST['submit'])){
     <body>
         <div class="container">
             <div class="image">
-                <img src="http://localhost/code/image/co.png" title= "bienvenue" >
+                <img src="http://localhost/code/image/co.png" title= "bienvenue" alt="fond">
             </div>
             <div class="login-box">
                 <div class="logo">
-                    <img src="http://localhost/code/image/logo.png" title="logo">
+                    <img src="http://localhost/code/image/logo.png" title="logo" alt="logo">
                 </div>
                 <br>
                 <h2>S'authentifier</h2>
