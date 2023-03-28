@@ -59,11 +59,22 @@ if(isset($_POST['submit'])){
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <html lang="fr">
         <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title> Authentification </title>
+
+        <meta name="theme-color" content="#ff0000"/>
+        <link rel="manifest" href="manifest.json">
+        <script>
+        //if browser support service worker
+        if('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('sw.js');
+        };
+
+      </script>
     </head>
     <body>
         <div class="container">
